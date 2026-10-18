@@ -318,6 +318,39 @@ a.ext:hover{color:var(--accent-deep)}
 .final{margin-top:48px;padding-top:24px;border-top:2px solid var(--ink);display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:start}
 .final .q{font-family:var(--head);font-weight:600;color:var(--ink);font-size:clamp(20px,2.4vw,28px);line-height:1.25;letter-spacing:-.02em;max-width:34ch}
 
+/* 07 tools: cards reuse the hairline-top pattern of the outreach templates. Every class is prefixed tl-. */
+.tl-index{display:grid;grid-template-columns:1fr 1fr;column-gap:52px;margin-top:4px}
+.tl-index li{border-bottom:1px solid var(--hair)}
+.tl-index li:nth-child(-n+2){border-top:1px solid var(--hair)}
+.tl-index a{display:grid;grid-template-columns:minmax(0,1fr) auto 16px;column-gap:14px;align-items:baseline;padding:10px 0;color:inherit;text-decoration:none;font-size:14px}
+.tl-index .w{font-family:var(--head);font-weight:600;color:var(--ink);text-align:right}
+.tl-index a::after{content:"\2193";font-family:var(--head);color:var(--muted);justify-self:end}
+.tl-index a:hover .w{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:4px}
+.tl-index a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.tl-part{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 20px;margin-top:64px;padding-top:16px;border-top:2px solid var(--ink)}
+.tl-part h3{margin:0;font-size:clamp(22px,2.4vw,28px);letter-spacing:-.02em}
+.tl-part + *{margin-top:28px}
+.tl-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px 52px}
+.tl{border-top:1px solid var(--hair-strong);padding-top:14px;min-width:0;scroll-margin-top:24px}
+.tl-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}
+.tl-name{font-family:var(--head);font-weight:700;color:var(--ink);font-size:17px;line-height:1.3;letter-spacing:-.01em;margin:0}
+.tl-name .v{font-family:var(--body);font-weight:400;font-size:12.5px;color:var(--muted);margin-left:8px;letter-spacing:0}
+.tl-cmd{font-family:var(--head);font-weight:600;font-size:13.5px;color:var(--accent-deep);white-space:nowrap}
+.tl-tag{font-family:var(--head);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.tl-tag.on::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:6px;vertical-align:1px}
+.tl > p{font-size:14px;line-height:1.6}
+.tl > p + p{margin-top:8px}
+.tl-meta{margin-top:14px}
+.tl-meta > div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:7px 0;border-top:1px solid var(--hair);font-size:13.5px;line-height:1.5}
+.tl-meta > div:last-child{border-bottom:1px solid var(--hair)}
+.tl-meta dt{font-family:var(--head);font-weight:600;color:var(--ink)}
+.tl code,.tl-list code,.tl-set code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;color:var(--ink)}
+.tl-list li{display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr);gap:4px 24px;padding:10px 0;border-top:1px solid var(--hair);font-size:14px}
+.tl-list li:last-child{border-bottom:1px solid var(--hair)}
+.tl-list .nm{font-family:var(--head);font-weight:600;color:var(--ink)}
+.tl-list .nm .tl-cmd{display:block;font-size:12.5px;margin-top:2px}
+.tl-list + .lbl{display:block;margin-top:28px;margin-bottom:6px}
+
 /* footer */
 .foot{margin-top:80px;border-top:1px solid var(--hair);padding-block:20px 56px}
 .foot .small{max-width:90ch}
@@ -345,6 +378,10 @@ a.ext:hover{color:var(--accent-deep)}
   .final{grid-template-columns:1fr;gap:14px}
   .chapter{margin-top:56px}
   .tpls{grid-template-columns:1fr}
+  .tl-index,.tl-grid{grid-template-columns:1fr}
+  .tl-index li:nth-child(2){border-top:0}
+  .tl-list li{grid-template-columns:1fr}
+  .tl-part{margin-top:56px}
 }
 @media (max-width:460px){
   .arch{grid-template-columns:1fr}
@@ -355,6 +392,10 @@ a.ext:hover{color:var(--accent-deep)}
   .values{grid-template-columns:1fr}
   .dl > div{grid-template-columns:1fr;gap:0}
   .links li{grid-template-columns:1fr;gap:0}
+  .tl-meta > div{grid-template-columns:1fr;gap:0}
+  .tl-index a{grid-template-columns:minmax(0,1fr) 16px;row-gap:2px}
+  .tl-index .w{grid-column:1;grid-row:2;text-align:left}
+  .tl-index a::after{grid-column:2;grid-row:1}
 }
 
 @media print{
@@ -365,7 +406,7 @@ a.ext:hover{color:var(--accent-deep)}
   .band p,.band .inside{color:#333}
   .band .wrap{padding-block:14px 10px}
   .chapter{margin-top:24px;break-before:page}
-  .row,.final{break-inside:avoid}
+  .row,.final,.tl{break-inside:avoid}
 }
 </style>
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -385,7 +426,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="meta">Social media hub · Updated October 2026</span>
     </div>
     <h1>Brand and social media hub</h1>
-    <p class="lede">Everything the social media team needs to post as Mike Moll, in one place. Start with the links, then the brand, the look, the voice and the content playbook.</p>
+    <p class="lede">Everything the social media team needs to post as Mike Moll, in one place. Start with the links, then the brand, the look, the voice and the content playbook. The tools we’ve built are in chapter 07.</p>
 
     <!-- CONTENTS: add one <li> here for every chapter below, with the same number and id. -->
     <nav aria-label="Contents">
@@ -396,6 +437,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="#voice"><span class="n">04</span><span class="t">Voice and words</span><span class="d">How Mike sounds and the words we use.</span></a></li>
         <li><a href="#playbook"><span class="n">05</span><span class="t">Content playbook</span><span class="d">What to post, when, and how it’s built.</span></a></li>
         <li><a href="#podcasting"><span class="n">06</span><span class="t">Guest podcasting</span><span class="d">Speaker sheet, outreach database, the process and email templates.</span></a></li>
+        <li><a href="#tools"><span class="n">07</span><span class="t">Tools and skills</span><span class="d">Everything we’ve built to make content, what each tool does and how you reach it.</span></a></li>
       </ol>
     </nav>
   </div>
@@ -844,7 +886,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <ul class="links">
               <li><span class="p">Carousels</span><span>The /carousel skill. Two themes, White and Matte Dark.</span></li>
               <li><span class="p">Covers</span><span>The /cover skill and the brain doc “Reel, TikTok and Story Covers”. Locked September 30, 2026.</span></li>
-              <li><span class="p">Thumbnails</span><span>The /thumbnail skill and the brain doc “YouTube Thumbnails”. In review with Mike, October 2026.</span></li>
+              <li><span class="p">Thumbnails</span><span>The /thumbnail skill and the brain doc “YouTube Thumbnails”. Version 2.0, approved by Mike October 7, 2026.</span></li>
             </ul>
             <div class="lk-demo">
               <span class="lbl">Carousel themes</span>
@@ -1155,6 +1197,326 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <!-- ============ 07 TOOLS AND SKILLS ============ -->
+  <!-- Source: ai-skills main (a0170e0) and the Coaching Team connector 1.2, October 17, 2026.
+       When a skill changes version or a tool is added, update its card here. Never put a
+       connector link, key or token on this page: the site repo is public. -->
+  <section class="chapter" id="tools">
+    <div class="band">
+      <div class="wrap">
+        <span class="n">07</span>
+        <div>
+          <h2>Tools and skills</h2>
+          <p>Everything we’ve built to make Mike’s content, what each tool does and how you reach it.</p>
+        </div>
+        <ul class="inside"><li>How it fits together</li><li>Pick by the job</li><li>Make content</li><li>Video</li><li>Checks</li><li>Libraries</li><li>Coaches</li><li>Runs on its own</li><li>Getting set up</li></ul>
+      </div>
+    </div>
+    <div class="body">
+      <div class="wrap">
+        <div class="row two">
+          <div class="blk">
+            <h3>How it fits together</h3>
+            <p>Every tool reads from the same place, so every piece sounds and looks like Mike.</p>
+            <ol class="order" style="margin-top:14px">
+              <li><span class="n">1</span><span><b>The second brain.</b> Mike’s brand, voice rules, audience, offers, client proof, podcast transcripts and past content. You can read it. You can’t change it.</span></li>
+              <li><span class="n">2</span><span><b>The libraries.</b> About 400 tagged photos of Mike and the approved thumbnail backgrounds, with download links.</span></li>
+              <li><span class="n">3</span><span><b>The skills.</b> The step-by-step process for each kind of content. Type the command on its card, or ask in plain words, for example “make a cover for this transcript.”</span></li>
+            </ol>
+            <p class="small">Mike connects you to all three with one private link and sends the skills as a kit. Until then, use this chapter as the map.</p>
+          </div>
+          <div class="blk">
+            <h3>Which app to use</h3>
+            <dl class="dl">
+              <div><dt>Codex</dt><dd>Every tool. The best place for covers, thumbnails and carousels, because it runs the scripts that draw them.</dd></div>
+              <div><dt>Claude Code</dt><dd>Every tool, the same as Codex. Start with the skill’s name, for example /cover-builder.</dd></div>
+              <div><dt>Chat apps</dt><dd>Claude or ChatGPT chats. Writing: hooks, posts, cover and thumbnail words, photo picks. A chat can’t draw covers or thumbnails.</dd></div>
+            </dl>
+            <p class="small">Covers and thumbnails also need Python 3, Pillow 11 or newer and Google Chrome on your computer.</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="blk">
+            <h3>Pick by the job</h3>
+            <ul class="tl-index">
+              <li><a href="#tool-hooks"><span>Hooks for a video or post</span><span class="w">Hook maker</span></a></li>
+              <li><a href="#tool-cover"><span>Reel, TikTok, Short or story cover</span><span class="w">Cover builder</span></a></li>
+              <li><a href="#tool-thumbnail"><span>YouTube thumbnail</span><span class="w">Thumbnail builder</span></a></li>
+              <li><a href="#tool-carousel"><span>Instagram carousel</span><span class="w">Carousel</span></a></li>
+              <li><a href="#tool-linkedin"><span>LinkedIn post</span><span class="w">LinkedIn posts</span></a></li>
+              <li><a href="#tool-podcast"><span>Podcast episode script</span><span class="w">Podcast episode</span></a></li>
+              <li><a href="#tool-videoblog"><span>Blog post from a YouTube video</span><span class="w">Video blog</span></a></li>
+              <li><a href="#tool-descript"><span>Edit a video</span><span class="w">Descript</span></a></li>
+              <li><a href="#tool-docs"><span>Guide, lead magnet or one-pager</span><span class="w">Branded docs</span></a></li>
+              <li><a href="#tool-webinar"><span>Webinar or training script</span><span class="w">Webinar engine</span></a></li>
+              <li><a href="#tool-humanizer"><span>Check a piece before it ships</span><span class="w">Humanizer</span></a></li>
+              <li><a href="#tool-photos"><span>A photo of Mike</span><span class="w">Photo library</span></a></li>
+              <li><a href="#tool-coaches"><span>Feedback on a design</span><span class="w">Chris Do coach</span></a></li>
+              <li><a href="#tool-coaches"><span>An AI image or video</span><span class="w">Rory Flynn coach</span></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ===== MAKE CONTENT ===== -->
+        <div class="tl-part">
+          <h3>Make content</h3>
+          <p class="small">Hooks first. The cover and thumbnail builders read the hook maker’s hand-off.</p>
+        </div>
+        <div class="tl-grid">
+          <article class="tl" id="tool-hooks">
+            <div class="tl-head"><h4 class="tl-name">Hook maker<span class="v">1.4</span></h4><span class="tl-cmd">/hooks</span></div>
+            <p>Writes five hooks from a transcript, post or draft. Each one uses a different angle and traces back to a line Mike said. Every hook comes as a spoken open, a first written line and a cover line of 3 to 8 words. For long YouTube videos it adds the thumbnail words: a support line, one hero word and the blue mark.</p>
+            <dl class="tl-meta">
+              <div><dt>Give it</dt><dd>A transcript, post or draft.</dd></div>
+              <div><dt>You get</dt><dd>Five hooks, then a hand-off block for the cover and thumbnail builders.</dd></div>
+              <div><dt>Run it in</dt><dd>Any app.</dd></div>
+            </dl>
+          </article>
+          <article class="tl" id="tool-cover">
+            <div class="tl-head"><h4 class="tl-name">Cover builder<span class="v">1.4</span></h4><span class="tl-cmd">/cover</span></div>
+            <p>Builds covers for Reels, TikToks, Shorts and stories. It takes the cover line from the hook maker, pulls a fresh shortlist of Mike’s photos and sets the hook in one of four looks: float, fade, label slab or veil. The hook is never cut, and every word sits inside the profile-grid crop. Ten automatic checks run before it hands anything over.</p>
+            <dl class="tl-meta">
+              <div><dt>Give it</dt><dd>A transcript, or the hook you picked.</dd></div>
+              <div><dt>You get</dt><dd>Two options, each at 2160×3840 and 1080×1920.</dd></div>
+              <div><dt>Run it in</dt><dd>Codex or Claude Code.</dd></div>
+              <div><dt>After</dt><dd>Log both photos with <code>photo_use</code>. When Mike picks one, log it again as published.</dd></div>
+            </dl>
+          </article>
+          <article class="tl" id="tool-thumbnail">
+            <div class="tl-head"><h4 class="tl-name">Thumbnail builder<span class="v">2.0</span></h4><span class="tl-cmd">/thumbnail</span></div>
+            <p>Builds YouTube thumbnails at 1280×720. Mike is already cut out and placed on an approved room: the lit charcoal wall or the brick room. The builder adds a short white support line, one big hero word and one hand-drawn blue loop or arrow, then runs 23 automatic checks. You never cut out or edit Mike’s photo.</p>
+            <dl class="tl-meta">
+              <div><dt>Give it</dt><dd>The transcript of a long-form video.</dd></div>
+              <div><dt>You get</dt><dd>Options A and B, plus a feed sheet that shows them next to other videos.</dd></div>
+              <div><dt>Run it in</dt><dd>Codex or Claude Code.</dd></div>
+              <div><dt>After</dt><dd>Log both with <code>thumb_use</code>, then log the one that went up as published.</dd></div>
+            </dl>
+          </article>
+          <article class="tl" id="tool-carousel">
+            <div class="tl-head"><h4 class="tl-name">Carousel</h4><span class="tl-cmd">/carousel</span></div>
+            <p>Builds Instagram carousels as 1080×1350 slides on Mike’s editorial layout: a big-number cover, numbered content slides and a final slide. Two themes, White and Matte Dark, with the bright blue as the one accent. You approve the copy before anything is drawn, and the humanizer check is built in.</p>
+            <dl class="tl-meta">
+              <div><dt>Give it</dt><dd>An idea, a post or a transcript.</dd></div>
+              <div><dt>You get</dt><dd>One PNG per slide, plus a zip.</dd></div>
+              <div><dt>Run it in</dt><dd>Codex or Claude.</dd></div>
+            </dl>
+          </article>
+          <article class="tl" id="tool-linkedin">
+            <div class="tl-head"><h4 class="tl-name">LinkedIn posts</h4><span class="tl-cmd">/linkedin</span></div>
+            <p>Writes Mike’s LinkedIn posts on the weekly rotation in chapter 05: teaching, case study, story, teaching plus the training, and lifestyle. The rotation comes from the system Mike’s LinkedIn coach uses. Each post gets one hook and at most one ask.</p>
+            <dl class="tl-meta">
+              <div><dt>Give it</dt><dd>A topic, a transcript or a client result.</dd></div>
+              <div><dt>You get</dt><dd>A post, ready to schedule in ContentStudio.</dd></div>
+              <div><dt>Run it in</dt><dd>Any app.</dd></div>
+            </dl>
+          </article>
+          <article class="tl" id="tool-podcast">
+            <div class="tl-head"><h4 class="tl-name">Podcast episode</h4><span class="tl-cmd">/podcast</span></div>
+            <p>Scripts or outlines an episode of Mike’s own podcast in its 8-part structure. Each episode teaches the why behind a problem: the belief that keeps it in place. Tactics stay out.</p>
+            <dl class="tl-meta">
+              <div><dt>Give it</dt><dd>A topic or a lesson.</dd></div>
+              <div><dt>You get</dt><dd>An outline or a full script.</dd></div>
+              <div><dt>Run it in</dt><dd>Any app.</dd></div>
+            </dl>
+          </article>
+          <article class="tl" id="tool-docs">
+            <div class="tl-head"><h4 class="tl-name">Branded docs</h4><span class="tl-cmd">/branded-docs</span></div>
+            <p>Mike’s house style for anything people read: guides, lead magnets, one-pagers, reports and briefs.</p>
+            <dl class="tl-meta">
+              <div><dt>Give it</dt><dd>The content, or a brief.</dd></div>
+              <div><dt>You get</dt><dd>A finished document in Mike’s look.</dd></div>
+              <div><dt>Run it in</dt><dd>Any app.</dd></div>
+            </dl>
+          </article>
+          <article class="tl" id="tool-webinar">
+            <div class="tl-head"><h4 class="tl-name">Webinar engine</h4><span class="tl-cmd">/webinar-engine</span></div>
+            <p>Writes and fixes presentations that sell: webinars, trainings, workshops and talks. It can also grade a script that already exists.</p>
+            <dl class="tl-meta">
+              <div><dt>Give it</dt><dd>The topic and the offer, or a script to review.</dd></div>
+              <div><dt>You get</dt><dd>A full script, or a graded review.</dd></div>
+              <div><dt>Run it in</dt><dd>Any app.</dd></div>
+            </dl>
+          </article>
+        </div>
+
+        <!-- ===== VIDEO ===== -->
+        <div class="tl-part">
+          <h3>Video</h3>
+          <p class="small">What we edit with, what’s in testing, and the blog posts made from YouTube videos.</p>
+        </div>
+        <div class="tl-grid">
+          <article class="tl" id="tool-descript">
+            <div class="tl-head"><h4 class="tl-name">Descript</h4><span class="tl-tag on">In use</span></div>
+            <p>The editor we use today for podcast and video edits. The login and the SOP video are in chapter 01.</p>
+            <dl class="tl-meta">
+              <div><dt>Run it in</dt><dd><a class="ext" href="https://web.descript.com/" target="_blank" rel="noopener">web.descript.com</a></dd></div>
+            </dl>
+          </article>
+          <article class="tl" id="tool-hyperframes">
+            <div class="tl-head"><h4 class="tl-name">HyperFrames</h4><span class="tl-tag">In testing</span></div>
+            <p>AI video editing on Mike’s Mac. It recuts talking-head videos and adds motion cards, photo B-roll from the library, zooms and sound, all in the brand look. The first branded Reel edit was made October 8, 2026. A skill for the team comes later.</p>
+            <dl class="tl-meta">
+              <div><dt>Run it in</dt><dd>Mike’s Mac only for now. Ask Mike.</dd></div>
+            </dl>
+          </article>
+          <article class="tl" id="tool-videoblog">
+            <div class="tl-head"><h4 class="tl-name">Video blog<span class="v">1.1</span></h4><span class="tl-tag on">Runs daily</span></div>
+            <p>Turns a YouTube video into a blog post on mikemoll.co. It pulls the captions, writes the article in Mike’s voice and builds the page. Mike reviews the preview and publishes it.</p>
+            <dl class="tl-meta">
+              <div><dt>Your part</dt><dd>In the Notion content database, open the Asset Tracker, paste the video’s link into <b>Youtube Link</b> and leave <b>Added to Site</b> unticked. The next morning’s run picks it up.</dd></div>
+              <div><dt>Run it in</dt><dd>Runs on its own every morning. Mike can also run /video-blog by hand.</dd></div>
+            </dl>
+          </article>
+        </div>
+
+        <!-- ===== CHECKS ===== -->
+        <div class="tl-part">
+          <h3>Checks</h3>
+          <p class="small">Nothing goes to Mike without both.</p>
+        </div>
+        <div class="tl-grid">
+          <article class="tl" id="tool-humanizer">
+            <div class="tl-head"><h4 class="tl-name">Humanizer</h4><span class="tl-cmd">/humanizer</span></div>
+            <p>Finds and fixes signs of AI writing: puffed-up words, vague claims, lists of three, dashes and filler. Most skills run it for you. Run it yourself on anything you wrote by hand.</p>
+            <dl class="tl-meta">
+              <div><dt>Run it in</dt><dd>Any app.</dd></div>
+            </dl>
+          </article>
+          <article class="tl">
+            <div class="tl-head"><h4 class="tl-name">Voice rules and banned words</h4><span class="tl-tag">In the brain</span></div>
+            <p>Mike’s voice rules and the banned-words list live in the brain, and the short version is chapter 04. The writing skills load them on each run, and the hook maker drops any hook with a banned phrase before you see it.</p>
+            <dl class="tl-meta">
+              <div><dt>Where</dt><dd><a class="ext" href="#voice">Chapter 04</a></dd></div>
+            </dl>
+          </article>
+        </div>
+
+        <!-- ===== LIBRARIES ===== -->
+        <div class="tl-part" id="tool-photos">
+          <h3>Libraries</h3>
+          <p class="small">What the private link opens. Each tool name below is what you ask the app to call.</p>
+        </div>
+        <div class="tl-grid">
+          <article class="tl">
+            <div class="tl-head"><h4 class="tl-name">Second brain</h4><span class="tl-tag">Read only</span></div>
+            <p>About 150 documents on the coaching brand: voice rules, audience, offers, frameworks, client proof, podcast transcripts and past copy. Confidential documents and client files stay hidden.</p>
+            <dl class="tl-meta">
+              <div><dt>Tools</dt><dd><code>get_brand_brief</code> · <code>brain_search</code> · <code>brain_get_document</code> · <code>brain_list_documents</code></dd></div>
+            </dl>
+          </article>
+          <article class="tl">
+            <div class="tl-head"><h4 class="tl-name">Photo library</h4><span class="tl-tag">About 400 photos</span></div>
+            <p>Every photo from the six albums in chapter 01, tagged by setting and layout. <code>photo_pick</code> hands you a fresh, varied shortlist and skips photos used on recent posts. Many photos include other people. Never name them or guess who they are.</p>
+            <dl class="tl-meta">
+              <div><dt>Tools</dt><dd><code>photo_pick</code> · <code>photo_search</code> · <code>photo_get</code> · <code>photo_use</code></dd></div>
+            </dl>
+          </article>
+          <article class="tl">
+            <div class="tl-head"><h4 class="tl-name">Thumbnail library</h4><span class="tl-tag">Approved pairs</span></div>
+            <p>Mike’s cutouts already placed on the approved rooms, checked and ready for words. <code>thumb_pick</code> returns options A and B for a hook.</p>
+            <dl class="tl-meta">
+              <div><dt>Tools</dt><dd><code>thumb_pick</code> · <code>bg_list</code> · <code>thumb_use</code></dd></div>
+            </dl>
+          </article>
+          <article class="tl">
+            <div class="tl-head"><h4 class="tl-name">Past content and status</h4></div>
+            <p><code>recent_content</code> shows what has been made before, so new pieces don’t repeat old hooks. <code>connector_status</code> shows who you are, what you can reach and the full tool list.</p>
+            <dl class="tl-meta">
+              <div><dt>Tools</dt><dd><code>recent_content</code> · <code>connector_status</code></dd></div>
+            </dl>
+          </article>
+        </div>
+        <p class="small" style="margin-top:20px">13 tools in all, read only. <code>photo_use</code> and <code>thumb_use</code> only add a note of what you used, which keeps the rotation fresh.</p>
+
+        <!-- ===== COACHES ===== -->
+        <div class="tl-part" id="tool-coaches">
+          <h3>Coaches</h3>
+          <p class="small">AI coaches built from each expert’s public work. Ask one for a critique or a second opinion.</p>
+        </div>
+        <div class="row two">
+          <div class="blk">
+            <span class="lbl">In your kit</span>
+            <ul class="tl-list" style="margin-top:6px">
+              <li><span class="nm">Chris Do<span class="tl-cmd">/chris-do</span></span><span>Visual critique and direction, content packaging and personal brand.</span></li>
+              <li><span class="nm">Rory Flynn<span class="tl-cmd">/ai-visuals-flynn</span></span><span>Art direction for AI images and video, so they look like part of the brand.</span></li>
+            </ul>
+          </div>
+          <div class="blk">
+            <span class="lbl">Ask Mike to add</span>
+            <ul class="tl-list" style="margin-top:6px">
+              <li><span class="nm">Dan Kennedy and Stefan Georgi<span class="tl-cmd">/copy-kennedy</span></span><span>Copy that sells: hooks, sales letters, offers.</span></li>
+              <li><span class="nm">Donald Miller<span class="tl-cmd">/messaging-miller</span></span><span>StoryBrand messaging: one-liners, website copy, email sequences.</span></li>
+              <li><span class="nm">Daniel Priestley<span class="tl-cmd">/authority-priestley</span></span><span>Personal brand and authority.</span></li>
+              <li><span class="nm">April Dunford<span class="tl-cmd">/positioning-dunford</span></span><span>Positioning against the alternatives.</span></li>
+              <li><span class="nm">Perry Marshall<span class="tl-cmd">/paid-media-marshall</span></span><span>Paid ads, and the 80/20 of where the budget goes.</span></li>
+              <li><span class="nm">Michal Malewicz<span class="tl-cmd">/ui-malewicz</span></span><span>Page and layout critique.</span></li>
+              <li><span class="nm">Meng To<span class="tl-cmd">/ai-build-mengto</span></span><span>Briefing the AI that builds web pages.</span></li>
+            </ul>
+            <p class="small" style="margin-top:12px">Eight more coaches cover negotiation, finance, operations, hiring, strategy and sales. This role doesn’t need them.</p>
+          </div>
+        </div>
+
+        <!-- ===== RUNS ON ITS OWN ===== -->
+        <div class="tl-part">
+          <h3>Runs on its own</h3>
+          <p class="small">These run without you.</p>
+        </div>
+        <div class="row two">
+          <div class="blk">
+            <h3>On a schedule</h3>
+            <dl class="dl">
+              <div><dt>Every morning</dt><dd><b>Video blog queue.</b> New blog posts from the Asset Tracker.</dd></div>
+              <div><dt>Every morning</dt><dd><b>Video blog rebuild.</b> Moves old blog posts to the new video layout, five at a time.</dd></div>
+              <div><dt>Mondays</dt><dd><b>Tracking upkeep.</b> Checks the site’s conversion tracking and adds new videos to the Meta video-viewer audience for ads.</dd></div>
+              <div><dt>1st of the month</dt><dd><b>Search volume.</b> Fresh Google search numbers for the site’s saved keywords.</dd></div>
+            </dl>
+          </div>
+          <div class="blk">
+            <h3>Mike runs these</h3>
+            <ul class="dots">
+              <li>The website, mikemoll.co, with its SEO, image and design skills.</li>
+              <li>The speaker sheet and the podcast outreach drafts. Your part is chapter 06.</li>
+              <li>Call intelligence: turns client call transcripts into proof. It feeds the Testimonial database in chapter 05.</li>
+              <li>Brain intake: files new material into the brain.</li>
+              <li>The review engine: asks clients for reviews and collects them.</li>
+              <li>His own planning, sales and contact tools. These stay private.</li>
+            </ul>
+            <p class="small" style="margin-top:12px">If you need something from one of these, ask Mike.</p>
+          </div>
+        </div>
+
+        <!-- ===== GETTING SET UP ===== -->
+        <div class="tl-part">
+          <h3>Getting set up</h3>
+          <p class="small">Mike sets this up with you.</p>
+        </div>
+        <div class="row two tl-set">
+          <div class="blk">
+            <h3>Your first day with the tools</h3>
+            <ol class="order">
+              <li><span class="n">1</span><span><b>Mike sends your private link and your kit.</b> The link works like a password. Never share it, post it or save it anywhere other people can see.</span></li>
+              <li><span class="n">2</span><span><b>Open the kit</b> in Codex, Claude or ChatGPT and follow its START-HERE file one step at a time.</span></li>
+              <li><span class="n">3</span><span><b>For covers and thumbnails,</b> install Python 3, Pillow 11 or newer and Google Chrome, then run the doctor check in START-HERE. It lists anything missing.</span></li>
+              <li><span class="n">4</span><span><b>Test it.</b> Ask: “Call connector_status.” You should see your name, about 150 documents, about 400 photos and 13 tools.</span></li>
+              <li><span class="n">5</span><span><b>When a skill changes,</b> Mike sends a new kit. Replace the old folder so versions don’t mix.</span></li>
+            </ol>
+          </div>
+          <div class="blk">
+            <h3>House rules for the tools</h3>
+            <ul class="dots">
+              <li>Where a skill and the brain disagree, the brain wins. Where this page and a builder disagree on a look, the builder wins.</li>
+              <li>Covers start from <code>photo_pick</code>. Thumbnails start from <code>thumb_pick</code>. Log what you deliver.</li>
+              <li>Photos are for Mike’s content only.</li>
+              <li>Every piece goes through the humanizer and the banned-words sweep before it goes to Mike.</li>
+              <li>You read, Mike edits. The brain, the skills and the site are his to change. If something looks wrong, tell Mike.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ADD A CHAPTER: copy one <section class="chapter"> block above, give it the next
        number (06, 07...) and a new id, update its band text and "inside" list, and add a
        matching <li> to the contents list at the top. Inside .body use .row, .row.two or
@@ -1164,7 +1526,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <footer class="foot">
   <div class="wrap">
-    <p class="small">Built from the coaching second brain: BRAND: Core Message, Positioning, Voice and Story, Ideal Client Profile, Core Values · Content Conversion Strategy &amp; Pillars · Mike Moll: LinkedIn Organic Strategy · Content Source Bank · Voice Guardrails (Aug 31, updated Sep 12) · Mike’s Voice · Icon System · mikemoll.co Favicon · Podcast Description · Mike Moll — Podcast Guest Profile. Visual tokens from mikemoll.co site-v2.css.</p>
+    <p class="small">Built from the coaching second brain: BRAND: Core Message, Positioning, Voice and Story, Ideal Client Profile, Core Values · Content Conversion Strategy &amp; Pillars · Mike Moll: LinkedIn Organic Strategy · Content Source Bank · Voice Guardrails (Aug 31, updated Sep 12) · Mike’s Voice · Icon System · mikemoll.co Favicon · Podcast Description · Mike Moll — Podcast Guest Profile. Visual tokens from mikemoll.co site-v2.css. Chapter 07 from Mike’s skills repo (ai-skills) and the Coaching Team connector, October 17, 2026.</p>
   </div>
 </footer>
 
