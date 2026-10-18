@@ -4,7 +4,7 @@
 blog posts for Mike Moll's site (the dark editorial "Undervalued Expert" design). Fully
 built, SEO/GEO-optimized, and ready to go live.
 
-**Target repo:** `github.com/checkmike64/mikemoll-site` (this repo deploys the live https://www.mikemoll.co site).
+**Target repo:** `github.com/Impact-Leads-LLC/mikemoll-site` (this repo deploys the live https://www.mikemoll.co site).
 
 ---
 
