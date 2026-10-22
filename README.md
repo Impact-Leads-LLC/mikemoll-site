@@ -52,6 +52,14 @@ To put a page on v2:
    `/* promote to site-v2 */` comment; a cleanup PR moves it into section 9c.
 5. Check it at 390px and 1440px against the live page before merging.
 
+Glyphs (the `.g` icons on benefit and feature cards): take one from the approved
+library in the brain doc "Glyphs — Mike Moll" (coaching), or draw a new one
+with the `glyph-maker` skill and get Mike's OK before it ships. Markup:
+`<svg class="g" viewBox="0 0 44 44" aria-hidden="true">`, ink parts with no
+class, the one blue part `class="a"` (a line) or `class="af"` (a fill). Never a
+stock icon set or an emoji. A newly approved glyph goes into the brain doc's
+library too.
+
 Content components (site-v2.css section 9b, from /media, /guest-appearances and
 /podcast; reuse them on the blog index and other content pages): `.cover` tile
 (`.yt`, `.ini`), `.applist` appearance list (`.c2` two columns), `.eplist`
