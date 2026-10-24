@@ -510,10 +510,12 @@ main{flex:1;display:flex;flex-direction:column}
     return values;
   }
 
+  // Only Stripe's own checkout page: whatever the answer says, the client is
+  // never sent anywhere else after signing.
   function checkoutAddress(value) {
     try {
       var url = new URL(String(value || ''));
-      return url.protocol === 'https:' ? url.href : '';
+      return url.protocol === 'https:' && url.hostname === 'checkout.stripe.com' ? url.href : '';
     } catch (e) {
       return '';
     }
