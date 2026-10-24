@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WD3WQ8N');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+// The signing link carries a private token (?t=). It is read here, before Tag
+// Manager has loaded, and taken out of the address bar so analytics and the
+// visit beacon never see it. This tab keeps it, so a reload still works.
+(function () {
+  var t = null;
+  try {
+    var url = new URL(location.href);
+    t = url.searchParams.get('t');
+    if (t !== null) {
+      url.searchParams.delete('t');
+      history.replaceState(history.state, '', url.pathname + url.search + url.hash);
+      try { sessionStorage.setItem('mm_agreement_t', t); } catch (e) {}
+    } else {
+      try { t = sessionStorage.getItem('mm_agreement_t'); } catch (e) {}
+    }
+  } catch (e) {}
+  window.mmAgreementToken = t;
+})();
+</script>
+<title>Your agreement | Mike Moll</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://www.mikemoll.co/agreement">
+<!-- chrome:head -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;600;700;800&family=Poppins:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site-v2.css">
+<!-- /chrome:head -->
+<style>
+/* /agreement: an approved client reads the service agreement, signs it and
+   goes on to Stripe Checkout. The CRM sends the link (/agreement?t=<token>),
+   serves the agreement, records the signature and makes the checkout session.
+   Page-only rules; everything shared lives in /assets/site-v2.css. This page
+   pushes nothing to Tag Manager. */
+[hidden]{display:none!important}
+body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+main{flex:1;display:flex;flex-direction:column}
+/* nothing sticks on this page: the header scrolls away with the text */
+.site-nav{position:relative}
+
+/* states (loading, can't find, expired, cancelled, signed, paid): the centered
+   content hero of /payment-complete */
+.state{flex:1;display:flex;align-items:center}
+.state > .wrap{width:100%}
+.hero-b.center .wrap{align-items:center;text-align:center}
+.hero-b.center h1{max-width:none}
+.hero-b.center .lead{max-width:46ch}
+.state .loading{color:var(--muted)}
+.state .act-row{display:flex;flex-direction:column;align-items:center;gap:var(--s3);margin-top:var(--s2)}
+.state .msg{max-width:46ch}
+
+/* the agreement: one reading column, document-like */
+.agree{padding-block:var(--s10) var(--s12)}
+.doc,.sign{max-width:68ch;margin-inline:auto}
+.doc h1{font-size:clamp(26px,3.4vw,34px);line-height:1.18;letter-spacing:0;font-weight:800}
+.doc .date{margin-top:var(--s3);font-size:15px;color:var(--muted)}
+/* party box: CLIENT | CONTRACTOR between two hairlines, stacked on phones */
+.parties{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:var(--s7);border-block:1px solid var(--line)}
+.party{min-width:0;padding:var(--s5) var(--s5) var(--s5) 0}
+.party + .party{border-left:1px solid var(--line);padding-inline:var(--s5) 0}
+.party .label{margin-bottom:var(--s3)}
+.party .pn{font-family:var(--font-head);font-weight:700;font-size:var(--fs-b);line-height:1.4;color:var(--ink);overflow-wrap:anywhere}
+.party .pa{margin-top:var(--s1);font-size:15px;line-height:1.55;white-space:pre-line;overflow-wrap:anywhere}
+.party .ps{margin-top:var(--s3);font-size:var(--fs-s);line-height:1.5;color:var(--muted)}
+.party .empty{color:var(--muted);font-weight:500}
+/* clauses as given: headings, paragraphs, bullets; a clause number hangs in its own column */
+.doc .body{margin-top:var(--s7)}
+.doc .body > section + section{margin-top:var(--s7)}
+.doc h2{margin-bottom:var(--s3);font-size:15px;font-weight:700;line-height:1.4;letter-spacing:.06em}
+.doc p,.doc li{font-size:var(--fs-b);line-height:1.7;overflow-wrap:break-word}
+.doc .body p + p,.doc .body p + ul,.doc .body ul + p{margin-top:var(--s4)}
+.doc .cl{display:grid;grid-template-columns:2.4em minmax(0,1fr)}
+.doc .cl .n{color:var(--ink);font-variant-numeric:tabular-nums}
+.doc .body ul{padding-left:2.4em}
+.doc .body ul li{position:relative;padding-left:20px}
+.doc .body ul li::before{content:"";position:absolute;left:2px;top:.72em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.doc .body li + li{margin-top:var(--s2)}
+/* the client's details inside the text: soft fill, muted until typed */
+.mf{padding:1px 4px;border-radius:var(--r);background:var(--soft);color:var(--ink);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.mf.empty{color:var(--muted)}
+
+/* signing form */
+.sign{display:grid;gap:var(--s5);margin-top:var(--s10);padding-top:var(--s8);border-top:1px solid var(--line)}
+.sign h2{font-size:var(--fs-sub);line-height:1.15}
+.sign .sum{display:grid;gap:2px;margin-top:calc(-1 * var(--s3))}
+.sign .sum b{font-family:var(--font-head);font-weight:700;color:var(--ink)}
+.sign .sum span{font-size:15px;color:var(--muted)}
+.fld{display:grid;gap:6px}
+.fld label{font-family:var(--font-head);font-weight:600;font-size:15px;line-height:1.4;color:var(--ink)}
+.fld .hint{font-size:var(--fs-s);line-height:1.45;color:var(--muted)}
+.fld input,.fld textarea{width:100%;min-width:0;margin:0;font-size:var(--fs-b);line-height:20px;padding:13px 16px;
+  border:1px solid var(--field);border-radius:var(--r);background:#ffffff;color:var(--ink)}
+.fld textarea{min-height:104px;line-height:1.5;resize:vertical}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--accent);box-shadow:var(--focus)}
+.fld [aria-invalid="true"],.consent input[aria-invalid="true"]{border-color:#b42318}
+.fld .consent{display:flex;gap:12px;align-items:flex-start;font-family:var(--font-body);font-weight:400;font-size:15px;line-height:1.55;color:var(--ink);cursor:pointer}
+.consent input{flex:none;width:20px;height:20px;margin:2px 0 0;accent-color:var(--ink);cursor:pointer}
+.err,.msg{font-size:var(--fs-s);line-height:1.5;color:#b42318}
+.msg{font-size:15px}
+.msg:empty{display:none}
+.sign .btn{justify-self:start}
+.btn[disabled]{opacity:.6;cursor:progress}
+.btn[disabled]:hover{background:var(--accent)}
+.next{font-size:var(--fs-s);color:var(--muted)}
+.sign .next{margin-top:calc(-1 * var(--s3))}
+
+@media (max-width:560px){
+  .agree{padding-block:var(--s8) var(--s10)}
+  .parties{grid-template-columns:minmax(0,1fr)}
+  .party{padding:var(--s5) 0}
+  .party + .party{border-left:0;border-top:1px solid var(--line);padding-inline:0}
+  .doc .cl{grid-template-columns:2.1em minmax(0,1fr)}
+  .doc .body ul{padding-left:2.1em}
+  .sign h2{font-size:26px}
+}
+</style>
+<noscript><style>.loading{display:none}</style></noscript>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script src="/visits.js" defer></script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WD3WQ8N" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- chrome:header logo -->
+<header class="site-nav focus">
+  <div class="wrap">
+    <a class="logo" href="/">Mike<span>.</span>Moll<small>Sales + Offer Coach</small></a>
+  </div>
+</header>
+<!-- /chrome:header -->
+
+<main>
+  <section class="hero-b center state" id="state">
+    <div class="wrap" id="state-body">
+      <p class="lead loading" role="status">Loading your agreement...</p>
+      <noscript><p class="lead">Turn on JavaScript to read and sign your agreement.</p></noscript>
+    </div>
+  </section>
+
+  <section class="agree" id="agreement" hidden>
+    <div class="wrap">
+      <article class="doc" aria-labelledby="doc-title">
+        <h1 id="doc-title"></h1>
+        <p class="date" id="doc-date" hidden></p>
+        <div class="parties">
+          <div class="party">
+            <span class="label">Client</span>
+            <p class="pn" id="client-name"></p>
+            <p class="pa" id="client-address"></p>
+          </div>
+          <div class="party">
+            <span class="label">Contractor</span>
+            <p class="pn" id="contractor-name"></p>
+            <p class="pa" id="contractor-address"></p>
+            <p class="ps" id="contractor-signed" hidden></p>
+          </div>
+        </div>
+        <div class="body" id="doc-body"></div>
+      </article>
+
+      <form class="sign" id="sign" novalidate>
+        <h2>Sign the agreement</h2>
+        <p class="sum" id="sum" hidden></p>
+        <div class="fld">
+          <label for="f-legal">Client legal name</label>
+          <p class="hint" id="f-legal-hint">A person or a business.</p>
+          <input id="f-legal" name="legalName" type="text" maxlength="200" autocomplete="name" required aria-describedby="f-legal-hint f-legal-err">
+          <p class="err" id="f-legal-err" hidden></p>
+        </div>
+        <div class="fld">
+          <label for="f-address">Address</label>
+          <p class="hint" id="f-address-hint">Street, city, state or province, postal code and country.</p>
+          <textarea id="f-address" name="address" rows="3" maxlength="500" autocomplete="street-address" required aria-describedby="f-address-hint f-address-err"></textarea>
+          <p class="err" id="f-address-err" hidden></p>
+        </div>
+        <div class="fld">
+          <label for="f-signer">Your full name</label>
+          <p class="hint" id="f-signer-hint">This is your signature.</p>
+          <input id="f-signer" name="signatoryName" type="text" maxlength="200" autocomplete="name" required aria-describedby="f-signer-hint f-signer-err">
+          <p class="err" id="f-signer-err" hidden></p>
+        </div>
+        <div class="fld">
+          <label class="consent"><input id="f-consent" name="consent" type="checkbox" required aria-describedby="f-consent-err"><span id="consent-text"></span></label>
+          <p class="err" id="f-consent-err" hidden></p>
+        </div>
+        <p class="msg" id="sign-msg" role="alert"></p>
+        <button class="btn" type="submit" id="sign-btn">Sign and continue to payment</button>
+        <p class="next">Next: secure payment with Stripe.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- chrome:footer focus -->
+<footer class="site-foot focus">
+  <div class="wrap">
+    <div class="legal">
+      <div><span>&copy; 2026 Impact Leads LLC</span><i aria-hidden="true">&middot;</i><a href="/privacy">Privacy</a><i aria-hidden="true">&middot;</i><a href="/terms">Terms</a></div>
+      <nav aria-label="Social"><a href="https://www.instagram.com/themikemoll/">Instagram</a><i aria-hidden="true">&middot;</i><a href="https://www.youtube.com/@mikemollco">YouTube</a><i aria-hidden="true">&middot;</i><a href="https://www.linkedin.com/in/themikemoll/">LinkedIn</a></nav>
+    </div>
+  </div>
+</footer>
+<!-- /chrome:footer -->
+<script>
+// The agreement comes from the CRM: GET /api/agreements/<token>. Its text
+// still holds {{client.legal_name}} and {{client.address}}; they fill in here
+// as the client types, and so does the CLIENT side of the party box. Signing
+// posts the form to .../sign, and the CRM answers with the Stripe Checkout
+// address to go to next. Every value from the CRM or the address bar is
+// written into the page as text, never as markup.
+(function () {
+  var API = 'https://coaching-crm-tau.vercel.app/api/agreements/';
+  var TOKEN = /^[A-Za-z0-9_-]{16,128}$/;
+  var MERGE = /\{\{\s*(client\.legal_name|client\.address)\s*\}\}/g;
+  var CLAUSE = /^((?:\d{1,3}|[A-Za-z])\.)\s+([\s\S]+)$/;
+  var DATED = /^dated\b/i;
+  var CONSENT = 'I have read this agreement and agree to its terms. I agree to sign it electronically, and my typed name is my signature.';
+  var EMPTY_NAME = '[Client name]';
+  var EMPTY_ADDRESS = '[Client address]';
+
+  var token = window.mmAgreementToken;
+  var agreement = null;
+  var busy = false;
+  var leaving = false;
+  var fields = { legal: [], address: [] };
+
+  function byId(id) { return document.getElementById(id); }
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined && text !== null) node.textContent = String(text);
+    return node;
+  }
+
+  function text(value) {
+    return typeof value === 'string' ? value : '';
+  }
+
+  // "October 21, 2026" in the visitor's own time zone.
+  function day(iso) {
+    var date = iso ? new Date(iso) : null;
+    if (!date || isNaN(date.getTime())) return '';
+    try {
+      return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
+    } catch (e) {
+      return '';
+    }
+  }
+
+  // The CRM answers with plain JSON. A { ok, result } envelope, as the booking
+  // routes use, is unwrapped too.
+  function call(path, options, ms) {
+    options = options || {};
+    options.credentials = 'omit';
+    var controller = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = null;
+    if (controller) {
+      options.signal = controller.signal;
+      timer = setTimeout(function () { controller.abort(); }, ms);
+    }
+    return fetch(API + encodeURIComponent(token) + path, options)
+      .then(function (res) {
+        return res.text().then(function (raw) {
+          var body = null;
+          try { body = raw ? JSON.parse(raw) : null; } catch (e) {}
+          if (body && typeof body === 'object' && body.result && typeof body.result === 'object') {
+            var inner = body.result;
+            if (!inner.error && body.error) inner.error = body.error;
+            body = inner;
+          }
+          if (timer) clearTimeout(timer);
+          return { status: res.status, body: body && typeof body === 'object' ? body : {} };
+        });
+      }, function (error) {
+        if (timer) clearTimeout(timer);
+        throw error;
+      });
+  }
+
+  // ---- States -----------------------------------------------------------------
+
+  function showState(title, lead, action) {
+    var wrap = byId('state-body');
+    wrap.textContent = '';
+    wrap.appendChild(el('h1', '', title));
+    if (lead) wrap.appendChild(el('p', 'lead', lead));
+    if (action) wrap.appendChild(action);
+    byId('agreement').hidden = true;
+    byId('state').hidden = false;
+    window.scrollTo(0, 0);
+  }
+
+  function notFound() {
+    showState("We can't find this agreement.", 'Open it from the link in your email. If the link still does not work, reply to that email for a new one.');
+  }
+
+  function expired() {
+    showState('This link has expired.', 'Signing links last 30 days. Reply to the email it came in for a new one.');
+  }
+
+  function cancelled() {
+    showState('This agreement was cancelled.', 'It can no longer be signed. Reply to the email it came in with any questions.');
+  }
+
+  function paid() {
+    showState('Done.', 'A copy of the signed agreement is in your inbox.');
+  }
+
+  function loadFailed(message) {
+    var row = el('div', 'act-row');
+    var button = el('button', 'btn', 'Try again');
+    button.type = 'button';
+    button.addEventListener('click', function () { location.reload(); });
+    row.appendChild(button);
+    showState("Your agreement didn't load.", message || 'Check your connection and try again.', row);
+  }
+
+  // Already signed and not paid yet: signing again returns a checkout address
+  // without recording a second signature.
+  function signed(data) {
+    var when = day(data.signedAt);
+    var row = el('div', 'act-row');
+    var button = el('button', 'btn', 'Continue to payment');
+    button.type = 'button';
+    var msg = el('p', 'msg');
+    msg.setAttribute('role', 'alert');
+    row.append(button, el('p', 'next', 'Next: secure payment with Stripe.'), msg);
+    button.addEventListener('click', function () {
+      var client = data.client || {};
+      submit({
+        legalName: text(client.legalName).trim(),
+        address: text(client.address).trim(),
+        signatoryName: text(data.signatoryName).trim(),
+        consent: true
+      }, button, msg, {
+        label: 'Continue to payment',
+        working: 'Opening...',
+        invalid: "The payment page didn't open. Reply to the email your agreement came in for help."
+      });
+    });
+    showState('Agreement signed.', when ? 'You signed this on ' + when + '.' : 'You signed this agreement.', row);
+  }
+
+  // ---- The agreement ------------------------------------------------------------
+
+  // A run of text with the client's details as live spans.
+  function appendText(parent, value) {
+    var last = 0;
+    var match;
+    MERGE.lastIndex = 0;
+    while ((match = MERGE.exec(value)) !== null) {
+      if (match.index > last) parent.appendChild(document.createTextNode(value.slice(last, match.index)));
+      var span = el('span', 'mf');
+      (match[1] === 'client.legal_name' ? fields.legal : fields.address).push(span);
+      parent.appendChild(span);
+      last = MERGE.lastIndex;
+    }
+    if (last < value.length) parent.appendChild(document.createTextNode(value.slice(last)));
+  }
+
+  function paragraph(value) {
+    var p = el('p');
+    var clause = CLAUSE.exec(value);
+    if (clause) {
+      p.className = 'cl';
+      var rest = el('span');
+      appendText(rest, clause[2]);
+      p.append(el('span', 'n', clause[1]), rest);
+    } else {
+      appendText(p, value);
+    }
+    return p;
+  }
+
+  function renderSections(sections) {
+    var body = byId('doc-body');
+    body.textContent = '';
+    (Array.isArray(sections) ? sections : []).forEach(function (section) {
+      if (!section || typeof section !== 'object') return;
+      var part = el('section');
+      if (text(section.heading)) part.appendChild(el('h2', '', section.heading));
+      var list = null;
+      (Array.isArray(section.blocks) ? section.blocks : []).forEach(function (block) {
+        if (!block || typeof block.text !== 'string') return;
+        if (block.kind === 'li') {
+          if (!list) list = part.appendChild(el('ul'));
+          var item = el('li');
+          appendText(item, block.text);
+          list.appendChild(item);
+        } else {
+          list = null;
+          part.appendChild(paragraph(block.text));
+        }
+      });
+      body.appendChild(part);
+    });
+  }
+
+  function addressLines(value) {
+    return value.split(/\r?\n/).map(function (line) { return line.trim(); }).filter(Boolean);
+  }
+
+  function setField(spans, value, empty) {
+    spans.forEach(function (span) {
+      span.textContent = value || empty;
+      span.classList.toggle('empty', !value);
+    });
+  }
+
+  // The client's details, wherever they appear: in the text as one line, in
+  // the party box as typed.
+  function fill() {
+    var name = byId('f-legal').value.trim();
+    var lines = addressLines(byId('f-address').value);
+    var inline = lines.map(function (line) { return line.replace(/,+$/, ''); }).join(', ');
+    setField(fields.legal, name, EMPTY_NAME);
+    setField(fields.address, inline, EMPTY_ADDRESS);
+    setField([byId('client-name')], name, EMPTY_NAME);
+    setField([byId('client-address')], lines.join('\n'), EMPTY_ADDRESS);
+  }
+
+  function render(data) {
+    agreement = data;
+    var client = data.client || {};
+    var contractor = data.contractor || {};
+
+    byId('doc-title').textContent = text(data.title) || 'Service agreement';
+    var dated = text(data.dateText).trim();
+    if (dated) {
+      byId('doc-date').textContent = DATED.test(dated) ? dated : 'Dated ' + dated;
+      byId('doc-date').hidden = false;
+    }
+
+    byId('contractor-name').textContent = text(contractor.name) || 'Impact Leads LLC';
+    byId('contractor-address').textContent = (Array.isArray(contractor.lines) ? contractor.lines : [])
+      .filter(function (line) { return typeof line === 'string' && line.trim(); }).join('\n');
+    var signer = text(contractor.signatory).trim();
+    var signedOn = day(contractor.signedAt);
+    if (signer) {
+      byId('contractor-signed').textContent = 'Signed by ' + signer + (signedOn ? ' on ' + signedOn : '');
+      byId('contractor-signed').hidden = false;
+    }
+
+    renderSections(data.sections);
+
+    var offer = text(data.offer).trim();
+    var price = text(data.price).trim();
+    var email = text(client.email).trim();
+    var sum = byId('sum');
+    if (offer || price) sum.appendChild(el('b', '', [offer, price].filter(Boolean).join(', ')));
+    if (email) sum.appendChild(el('span', '', 'A signed copy goes to ' + email + '.'));
+    sum.hidden = !sum.firstChild;
+
+    byId('consent-text').textContent = text(data.consentText) || CONSENT;
+    if (text(client.legalName).trim()) byId('f-legal').value = client.legalName.trim();
+    fill();
+
+    byId('state').hidden = true;
+    byId('agreement').hidden = false;
+  }
+
+  // ---- Signing ------------------------------------------------------------------
+
+  var CHECKS = [
+    { id: 'f-legal', key: 'legalName', max: 200, empty: "Enter the client's legal name." },
+    { id: 'f-address', key: 'address', max: 500, empty: 'Enter the address.' },
+    { id: 'f-signer', key: 'signatoryName', max: 200, empty: 'Type your full name to sign.' }
+  ];
+
+  function mark(id, message) {
+    var input = byId(id);
+    var error = byId(id + '-err');
+    if (message) {
+      input.setAttribute('aria-invalid', 'true');
+      error.textContent = message;
+      error.hidden = false;
+    } else {
+      input.removeAttribute('aria-invalid');
+      error.textContent = '';
+      error.hidden = true;
+    }
+  }
+
+  function readForm() {
+    var values = { consent: true };
+    var first = null;
+    CHECKS.forEach(function (check) {
+      var value = byId(check.id).value.trim();
+      var message = !value ? check.empty : value.length > check.max ? 'Use ' + check.max + ' characters or fewer.' : '';
+      mark(check.id, message);
+      if (message && !first) first = check.id;
+      values[check.key] = value;
+    });
+    var agreed = byId('f-consent').checked;
+    mark('f-consent', agreed ? '' : 'Check the box to agree to the terms.');
+    if (!agreed && !first) first = 'f-consent';
+    if (first) {
+      byId(first).focus();
+      return null;
+    }
+    return values;
+  }
+
+  // Only Stripe's own checkout page: whatever the answer says, the client is
+  // never sent anywhere else after signing.
+  function checkoutAddress(value) {
+    try {
+      var url = new URL(String(value || ''));
+      return url.protocol === 'https:' && url.hostname === 'checkout.stripe.com' ? url.href : '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function submit(values, button, msg, words) {
+    if (busy || leaving) return;
+    busy = true;
+    button.disabled = true;
+    button.textContent = words.working;
+    msg.textContent = '';
+    var done = function (message) {
+      busy = false;
+      button.disabled = false;
+      button.textContent = words.label;
+      msg.textContent = message;
+    };
+    call('/sign', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(values)
+    }, 45000)
+      .then(function (answer) {
+        var body = answer.body;
+        var go = answer.status === 200 ? checkoutAddress(body.checkoutUrl) : '';
+        if (go) {
+          leaving = true;
+          button.textContent = 'Opening secure payment...';
+          location.href = go;
+          return;
+        }
+        busy = false;
+        if (body.error === 'already_paid') return paid();
+        if (body.error === 'void') return cancelled();
+        if (body.error === 'expired') return expired();
+        if (answer.status === 404 || body.error === 'not_found') return notFound();
+        if (answer.status === 429 || body.error === 'rate_limited') return done('Too many tries in a row. Wait a few minutes and try again.');
+        if (answer.status === 400 || body.error === 'invalid') return done(words.invalid);
+        done("That didn't go through. Try again in a moment.");
+      })
+      .catch(function () {
+        done('The connection dropped. Check your internet and try again.');
+      });
+  }
+
+  byId('f-legal').addEventListener('input', fill);
+  byId('f-address').addEventListener('input', fill);
+  ['f-legal', 'f-address', 'f-signer'].forEach(function (id) {
+    byId(id).addEventListener('input', function () {
+      if (byId(id).getAttribute('aria-invalid') && byId(id).value.trim()) mark(id, '');
+    });
+  });
+  byId('f-consent').addEventListener('change', function () {
+    if (byId('f-consent').checked) mark('f-consent', '');
+  });
+  byId('sign').addEventListener('submit', function (event) {
+    event.preventDefault();
+    var values = readForm();
+    if (values) {
+      submit(values, byId('sign-btn'), byId('sign-msg'), {
+        label: 'Sign and continue to payment',
+        working: 'Signing...',
+        invalid: 'Some details were not accepted. Check each field and try again.'
+      });
+    }
+  });
+
+  // Back from Stripe out of the browser's page cache: load the agreement
+  // again, so the page shows where it stands now.
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted && leaving) location.reload();
+  });
+
+  // ---- Load -----------------------------------------------------------------------
+
+  if (!token || !TOKEN.test(token)) {
+    notFound();
+    return;
+  }
+
+  call('', { headers: { Accept: 'application/json' } }, 20000)
+    .then(function (answer) {
+      var data = answer.body;
+      if (answer.status === 404 || data.error === 'not_found') return notFound();
+      if (answer.status === 429 || data.error === 'rate_limited') return loadFailed('Too many tries in a row. Wait a few minutes and try again.');
+      if (answer.status !== 200) return loadFailed();
+      switch (data.status) {
+        case 'sent':
+        case 'viewed':
+          render(data);
+          call('/view', { method: 'POST' }, 10000).catch(function () {});
+          return;
+        case 'signed': return signed(data);
+        case 'paid': return paid();
+        case 'void': return cancelled();
+        case 'expired': return expired();
+        default: return loadFailed();
+      }
+    })
+    .catch(function () { loadFailed(); });
+})();
+</script>
+</body>
+</html>
