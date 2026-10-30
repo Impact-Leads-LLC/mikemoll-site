@@ -2,7 +2,7 @@
   "updated": "2026-07-28",
   "note": "Authoring/tracking index. NOT served to visitors. Internal links are baked into static HTML. Types: podcast-episode | guest-appearance | writing.",
   "sources": {
-    "podcast_rss": "https://rss.mypodops.com/6773178797f1f.xml",
+    "podcast_rss": "https://podcast.mikemoll.co/feed/undervalued-expert.xml",
     "youtube_channel": "https://www.youtube.com/@mikemollco",
     "apify_transcript_actor": "starvibe/youtube-video-transcript"
   },
