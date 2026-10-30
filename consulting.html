@@ -30,7 +30,7 @@
 <style>
 /* /consulting: page-only rules. Everything shared lives in /assets/site-v2.css. */
 
-/* hero: type on white, the arms-crossed portrait on the right (a small face beside the proof line on phones) */
+/* hero: type on white, the arms-crossed portrait on the right (phones: type only, so the button stays on the first screen) */
 .hero-b.cons{padding-block:var(--s7) var(--s11)}
 .hero-b.cons .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:var(--s10);align-items:center}
 .hero-b.cons .copy{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s5)}
@@ -38,8 +38,7 @@
 .hero-b.cons .lead{font-size:20px;line-height:1.5;max-width:34ch;color:var(--text)}
 .hero-b.cons .btns{margin-top:var(--s2)}
 .hero-b.cons .portrait{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:50% 16%;border-radius:var(--r)}
-.cred{display:flex;align-items:center;gap:14px;margin-top:var(--s2);padding-top:var(--s5);border-top:1px solid var(--line);max-width:46ch}
-.cred img{display:none;width:48px;height:48px;border-radius:50%;flex:none}
+.cred{margin-top:var(--s2);padding-top:var(--s5);border-top:1px solid var(--line);max-width:46ch}
 .cred p{font-family:var(--font-head);font-weight:600;font-size:var(--fs-b);line-height:1.45;color:var(--ink)}
 
 /* the statements: the page's one loud device. Large lines on navy; each one lights
@@ -55,25 +54,35 @@
 .six.armed li:not(.on){color:var(--panel-muted)}
 .six.armed li:not(.on) b{color:inherit}
 
-/* who you'd be working with: the figures, then the stacked credentials in two columns of hairline rows */
-.guide .statrow{margin-top:var(--s9)}
-@media (min-width:961px){.guide .statrow li:first-child{padding-left:0}}
-.creds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s8);margin-top:var(--s9)}
-.creds li{font-size:var(--fs-b);line-height:1.5}
-.creds li:nth-child(2){border-top:1px solid var(--line)}
+/* the ask, right under the statements on navy */
+.ask{display:flex;flex-direction:column;align-items:center;gap:var(--s5);margin-top:var(--s10);text-align:center}
+.ask h3{font-size:var(--fs-sub);line-height:1.15;letter-spacing:-.02em;max-width:22ch}
 
-/* what clients say: six white cards, three across */
+/* who you'd be working with: Mike's photo beside the copy, three figures, then the credentials as hairline rows */
+.guide .founder{align-items:start}
+.guide .founder > img{object-position:50% 20%}
+.guide .copy > p{font-size:var(--fs-l);max-width:48ch}
+.guide .statrow{margin-top:var(--s4)}
+.guide .statrow li:first-child{padding-left:0}
+.guide .statrow b{font-size:clamp(38px,3.6vw,52px)}
+.creds li{font-size:var(--fs-b);line-height:1.5}
+
+/* what clients say: the big six, then a wall of short quotes */
 .tgrid.t3{grid-template-columns:repeat(3,minmax(0,1fr));max-width:none}
 .band-soft .tcard{border:1px solid var(--line)}
 .tcard .result{font-size:var(--fs-h3);line-height:1.25}
+.tcard .by img{width:56px;height:56px;border-radius:var(--r)}
+.minis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:var(--s5)}
+.minis li{display:flex;flex-direction:column;gap:var(--s3);background:#ffffff;border:1px solid var(--line);border-radius:var(--r);padding:20px 20px 18px;min-width:0}
+.minis blockquote{flex:1;margin:0;font-family:var(--font-head);font-weight:600;font-size:15px;line-height:1.45;color:var(--ink)}
+.minis .by{font-size:13px;line-height:1.4;color:var(--muted)}
+.minis .by b{display:block;font-family:var(--font-head);font-size:var(--fs-s);color:var(--ink)}
 
 /* the method, as written on the 30/30/30 page, then the ask */
 .lead-in{margin-top:var(--s10);font-family:var(--font-head);font-weight:700;font-size:var(--fs-l);line-height:1.4;color:var(--ink);max-width:56ch}
 .lead-in + .hgrid{margin-top:var(--s5)}
 .hgrid .g{margin-bottom:var(--s2)}
 .method-note{margin:var(--s8) auto 0;max-width:60ch;text-align:center;color:var(--text)}
-.ask{display:flex;flex-direction:column;align-items:center;gap:var(--s5);margin-top:var(--s10);padding-top:var(--s9);border-top:1px solid var(--line);text-align:center}
-.ask h3{font-size:var(--fs-sub);line-height:1.15;letter-spacing:-.02em;max-width:22ch}
 
 /* apply: the close beside the form card */
 .apgrid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:var(--s10);align-items:start}
@@ -101,13 +110,11 @@ form.ap{margin-top:var(--s6)}
   .hero-b.cons{padding-block:var(--s5) var(--s9)}
   .hero-b.cons .wrap{grid-template-columns:minmax(0,1fr)}
   .hero-b.cons .portrait{display:none}
-  .cred img{display:block}
+  .minis{grid-template-columns:repeat(2,minmax(0,1fr))}
   .tgrid.t3{grid-template-columns:repeat(2,minmax(0,1fr))}
   .apgrid{grid-template-columns:minmax(0,1fr);gap:var(--s8)}
 }
 @media (max-width:760px){
-  .creds{grid-template-columns:minmax(0,1fr)}
-  .creds li:nth-child(2){border-top:0}
   .tgrid.t3{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:560px){
@@ -121,11 +128,13 @@ form.ap{margin-top:var(--s6)}
   .said6{padding-block:var(--s10)}
   .six{margin-top:var(--s7)}
   .six li{padding-block:22px;font-size:26px;line-height:1.22}
-  .guide .statrow,.creds{margin-top:var(--s7)}
+  .ask{align-items:stretch;text-align:left;margin-top:var(--s8)}
+  .ask h3{font-size:26px}
+  .guide .founder > img{aspect-ratio:1/1;object-position:50% 18%}
+  .guide .statrow.c3 li:nth-child(n){padding-left:0}
+  .minis{grid-template-columns:minmax(0,1fr)}
   .lead-in{margin-top:var(--s8)}
   .method-note{text-align:left}
-  .ask{align-items:stretch;text-align:left;margin-top:var(--s8);padding-top:var(--s7)}
-  .ask h3{font-size:26px}
   .apcard{padding:28px 20px}
 }
 </style>
@@ -189,9 +198,9 @@ form.ap{margin-top:var(--s6)}
       <div class="copy">
         <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Consulting</span></nav>
         <h1>Build an offer that's easier to sell.</h1>
-        <p class="lead">I coach consultants, coaches, agency owners and fractional experts on their offer and their sales.</p>
+        <p class="lead">I coach consultants, coaches, agency owners and fractional experts on their offer and sales.</p>
         <div class="btns"><a href="#apply" class="btn">Apply to work with me</a></div>
-        <div class="cred"><img src="/media/consulting/mike-face.jpg" alt="" width="48" height="48"><p>I've built more than 150 offers and reviewed more than 1,000 sales calls.</p></div>
+        <div class="cred"><p>I've built more than 150 offers for service businesses.</p></div>
       </div>
       <img class="portrait" src="/media/consulting/hero.jpg" srcset="/media/consulting/hero-640.jpg 640w, /media/consulting/hero.jpg 1000w" sizes="(max-width:960px) 1px, 440px" width="1000" height="1500" alt="Mike Moll, arms crossed, in a grey shirt">
     </div>
@@ -203,35 +212,40 @@ form.ap{margin-top:var(--s6)}
       <ul class="six">
         <li>My offer sells well, but my marketing keeps bringing me <b>people I have to convince.</b></li>
         <li>My sales calls seem good, but <b>fewer people sign than I expect.</b></li>
+        <li>What I do is hard to explain in an ad, so my marketing leads with what people already want, and <b>they only understand my offer once we're on a call.</b></li>
         <li>I don't have a sales process I can measure, so <b>every call feels like a random conversation.</b></li>
+        <li>My offer tries to cover everything, so <b>it's hard for people to see what they're buying.</b></li>
+        <li>Good leads <b>go quiet after I send the proposal.</b></li>
         <li>Most of my clients come from referrals, so <b>I never know when the next one is coming.</b></li>
         <li>I'm trying to have my team sell, but <b>they can't sell like I can.</b></li>
       </ul>
+      <div class="ask">
+        <h3>If this sounds like you, let's book a call to discuss.</h3>
+        <a href="#apply" class="btn">Apply to work with me</a>
+      </div>
     </div>
   </section>
 
   <section id="meet" class="section guide">
-    <div class="wrap">
-      <div class="sec-head split">
-        <div class="t"><h2>I've been on your side of this.</h2></div>
+    <div class="wrap founder">
+      <img src="/media/consulting/mike-desk.jpg" width="640" height="800" loading="lazy" decoding="async" alt="Mike Moll at his desk, thinking, beside a laptop">
+      <div class="copy">
+        <h2>I've been on your side of this.</h2>
         <p>I've run service businesses since 2013, and I've been stuck in most of these myself. Since 2019, I've coached other owners through the same problems.</p>
+        <ul class="statrow c3">
+          <li><b>$2.5M+</b><span>Revenue my clients have added</span></li>
+          <li><b>1,000+</b><span>Hours of sales calls I've reviewed</span></li>
+          <li><b>25+</b><span>People on sales teams I've built and led</span></li>
+        </ul>
+        <ul class="creds lines dots">
+          <li>Coaching service founders since 2019</li>
+          <li>My agency worked with Volvo, Patak's and the Canadian government</li>
+          <li>Clients have raised their rates 2 to 4 times</li>
+          <li>Host of 120+ podcast episodes</li>
+          <li>MBA guest lecturer at McMaster University</li>
+          <li>Lived and worked in 11 countries, and hosted founder dinners in eight</li>
+        </ul>
       </div>
-      <ul class="statrow">
-        <li><b>$2.5M+</b><span>Revenue my clients have added</span></li>
-        <li><b>$700K</b><span>A year at my own agency, built from $0</span></li>
-        <li><b>$20M</b><span>Company I served as fractional CMO</span></li>
-        <li><b>70+</b><span>Podcasts I've been a guest on</span></li>
-      </ul>
-      <ul class="creds lines dots">
-        <li>Coaching service founders since 2019</li>
-        <li>My agency worked with Volvo, Patak's and the Canadian government</li>
-        <li>Clients have raised their rates 2 to 4 times</li>
-        <li>Host of 120+ podcast episodes</li>
-        <li>Author of the book Get on Podcasts</li>
-        <li>MBA guest lecturer at McMaster University</li>
-        <li>Spoke at AppSumo's Remote Work Academy, on a virtual stage with Chris Voss, Nir Eyal, James Clear and Dan Martell</li>
-        <li>Lived and worked in 11 countries, and hosted founder dinners in eight</li>
-      </ul>
     </div>
   </section>
 
@@ -239,48 +253,54 @@ form.ap{margin-top:var(--s6)}
     <div class="wrap">
       <div class="sec-head center"><h2>What my clients say.</h2></div>
       <div class="tgrid t3">
-        <div class="tcard"><p class="result">$16K &rarr; $30K a month, fewer hours</p><p class="q">"I'm making a few multiples more than when I came to Mike, working the same hours if not less."</p><div class="by"><img loading="lazy" decoding="async" src="/media/podcast-guesting/client-sean.jpg" alt="Sean" width="44" height="44"><div><b>Sean</b><span>Keepers Digital Marketing</span></div></div></div>
-        <div class="tcard"><p class="result">Retainer tripled, $1,500 &rarr; $4,500</p><p class="q">"I can bring Mike a problem that feels business-crushing, and within ten minutes he distills it into three different solutions that would all work."</p><div class="by"><img loading="lazy" decoding="async" src="/media/podcast-guesting/client-tyler.jpg" alt="Tyler" width="44" height="44"><div><b>Tyler</b><span>Email Marketing Agency</span></div></div></div>
-        <div class="tcard"><p class="result">From terrified of sales to enjoying it</p><p class="q">"I used to be terrified of sales. Now we're at $30&ndash;40K a month in recurring revenue, and I actually enjoy it."</p><div class="by"><div><b>Daniella</b><span>Findable Digital Marketing</span></div></div></div>
-        <div class="tcard"><p class="result">Rates quadrupled</p><p class="q">"My rates have quadrupled. Last month I did a $16K month without it feeling like a stretch."</p><div class="by"><img loading="lazy" decoding="async" src="/media/podcast-guesting/client-jenni.jpg" alt="Jenni" width="44" height="44"><div><b>Jenni</b><span>Chill Creative Co</span></div></div></div>
-        <div class="tcard"><p class="result">Sales up 30%</p><p class="q">"Mike's coaching helped me grow my sales by 30% and deeply connect with my audience. His podcasting and marketing strategies opened doors I didn't even know were there."</p><div class="by"><img loading="lazy" decoding="async" src="/media/podcast-guesting/client-mark.jpg" alt="Mark" width="44" height="44"><div><b>Mark</b><span>Solopreneur</span></div></div></div>
-        <div class="tcard"><p class="result">Scaled through systems and people</p><p class="q">"Mike helped me go from doing everything myself to scaling through systems and people."</p><div class="by"><div><b>Alvin</b><span>Consultant</span></div></div></div>
+        <div class="tcard"><p class="result">$16K &rarr; $30K a month, fewer hours</p><p class="q">"I'm making a few multiples more than when I came to Mike, working the same hours if not less."</p><div class="by"><img loading="lazy" decoding="async" src="/media/consulting/clients/sean.jpg" alt="Sean" width="56" height="56"><div><b>Sean</b><span>Keepers Digital Marketing</span></div></div></div>
+        <div class="tcard"><p class="result">Retainer tripled, $1,500 &rarr; $4,500</p><p class="q">"I can bring Mike a problem that feels business-crushing, and within ten minutes he distills it into three different solutions that would all work."</p><div class="by"><img loading="lazy" decoding="async" src="/media/consulting/clients/tyler.jpg" alt="Tyler" width="56" height="56"><div><b>Tyler</b><span>Email Marketing Agency</span></div></div></div>
+        <div class="tcard"><p class="result">From terrified of sales to enjoying it</p><p class="q">"I used to be terrified of sales. Now we're at $30&ndash;40K a month in recurring revenue, and I actually enjoy it."</p><div class="by"><img loading="lazy" decoding="async" src="/media/consulting/clients/daniella.jpg" alt="Daniella" width="56" height="56"><div><b>Daniella</b><span>Findable Digital Marketing</span></div></div></div>
+        <div class="tcard"><p class="result">Rates quadrupled</p><p class="q">"My rates have quadrupled. Last month I did a $16K month without it feeling like a stretch."</p><div class="by"><img loading="lazy" decoding="async" src="/media/consulting/clients/jenni.jpg" alt="Jenni" width="56" height="56"><div><b>Jenni</b><span>Chill Creative Co</span></div></div></div>
+        <div class="tcard"><p class="result">Sales up 30%</p><p class="q">"Mike's coaching helped me grow my sales by 30% and deeply connect with my audience. His podcasting and marketing strategies opened doors I didn't even know were there."</p><div class="by"><img loading="lazy" decoding="async" src="/media/consulting/clients/mark.jpg" alt="Mark" width="56" height="56"><div><b>Mark</b><span>Solopreneur</span></div></div></div>
+        <div class="tcard"><p class="result">Scaled through systems and people</p><p class="q">"Mike helped me go from doing everything myself to scaling through systems and people."</p><div class="by"><img loading="lazy" decoding="async" src="/media/consulting/clients/alvin.jpg" alt="Alvin" width="56" height="56"><div><b>Alvin</b><span>Consultant</span></div></div></div>
       </div>
+      <ul class="minis">
+        <li><blockquote>"I'm no longer finding clients who I have to convince that copywriting is important."</blockquote><p class="by"><b>Jenni</b>Chill Creative Co</p></li>
+        <li><blockquote>"Within the first email, I got three clients who paid in full upfront."</blockquote><p class="by"><b>Eli</b>Self Love Coach</p></li>
+        <li><blockquote>"We have a very good process now that I could probably delegate it to someone else if I wanted to."</blockquote><p class="by"><b>Daniella</b>Findable Digital Marketing</p></li>
+        <li><blockquote>"Now I've got new SOPs, the client's on the same page as us, so there's no scope creep."</blockquote><p class="by"><b>Kar</b>The Social Department</p></li>
+        <li><blockquote>"The types of customers who have been talking to us are slightly bigger companies than we're used to, and those are resulting in bigger contracts and better learning opportunities for the team."</blockquote><p class="by"><b>Sean</b>Keepers Digital Marketing</p></li>
+        <li><blockquote>"The most impactful thing I learned was clarifying our message."</blockquote><p class="by"><b>Andy</b>Agency owner</p></li>
+        <li><blockquote>"It's helped me move from an individual contributor, freelancer type to actually feeling like a business owner, because I have this product now."</blockquote><p class="by"><b>Tyler</b>Email Marketing Agency</p></li>
+        <li><blockquote>"Our growth had stalled until Mike came in with his no-fluff coaching. He helped us sharpen our outreach, which doubled event attendance and brought in exactly the startups we wanted."</blockquote><p class="by"><b>Susie</b>Startup community founder</p></li>
+      </ul>
     </div>
   </section>
 
   <section id="method" class="section band-dark">
     <div class="wrap">
       <div class="sec-head split">
-        <div class="t"><span class="eyebrow">The Compression Method</span><h2>Custom coaching that fixes your biggest problem first.</h2></div>
-        <p>This is live coaching, built around you and your business. We find the one thing holding you back the most and fix it first. Once that heaviest problem moves, you get a win where it counts, and you finally get paid for the value you create.</p>
+        <div class="t"><span class="eyebrow">The Compression Method</span><h2>A method built from years of fixing service businesses.</h2></div>
+        <p>Every business has one constraint that slows everything else down. The Compression Method finds yours, fixes it first, and cuts the work that doesn't need to be there. We can use it in a one-hour consult, a VIP day or private coaching, depending on what you need.</p>
       </div>
-      <p class="lead-in">Your biggest problem is always one of these three:</p>
+      <p class="lead-in">The constraint almost always sits in one of three places:</p>
       <ul class="hgrid c3">
         <li>
           <svg class="g" viewBox="0 0 44 44" aria-hidden="true"><path d="M10 23a11 11 0 0 1 11 11"/><path d="M10 15a19 19 0 0 1 19 19"/><path d="M10 7a27 27 0 0 1 27 27"/><circle class="af" cx="11" cy="33" r="3.5"/></svg>
           <span class="label">Marketing</span>
-          <h3>Authority that creates demand</h3>
-          <p>We sharpen who you're for and how you talk about it, and build the authority that brings the right buyers to you. Steady demand follows from that.</p>
+          <h3>The right buyers, who already get it</h3>
+          <p>We sharpen who you're for and how you explain what you do, so the people who reach out already understand your offer before the first call.</p>
         </li>
         <li>
           <svg class="g" viewBox="0 0 44 44" aria-hidden="true"><path d="M6 7h32L26 21v11h-8V21z"/><circle class="af" cx="22" cy="39" r="2.8"/></svg>
           <span class="label">Sales</span>
-          <h3>More calls turn into clients</h3>
-          <p>We give you a sales process you run the same way every time: qualify the right people, run the same discovery, price it for you to win, and follow up so warm leads don't slip away.</p>
+          <h3>A sales process you can measure</h3>
+          <p>We turn your calls into one process you run the same way every time: qualify the right people, run the same discovery, price it for you to win, and follow up. It's simple enough to hand to your team.</p>
         </li>
         <li>
           <svg class="g" viewBox="0 0 44 44" aria-hidden="true"><path d="M23 6h13a2 2 0 0 1 2 2v13L20.4 38.6a2 2 0 0 1-2.8 0L5.4 26.4a2 2 0 0 1 0-2.8z"/><circle class="af" cx="31" cy="13" r="3"/></svg>
           <span class="label">The Offer</span>
-          <h3>A business that serves your life</h3>
-          <p>We shape your work into one clear outcome you can charge a premium for, then build the systems and support that take you off the critical path and give your time back.</p>
+          <h3>An offer that's easy to buy and deliver</h3>
+          <p>We shape your work into one clear outcome you can charge a premium for, then cut the delivery steps that eat your time.</p>
         </li>
       </ul>
-      <p class="method-note">We find the one thing causing the most friction and fix it, then move on to the next constraint.</p>
-      <div class="ask">
-        <h3>If this sounds like you, let's book a call to discuss.</h3>
-        <a href="#apply" class="btn">Apply to work with me</a>
-      </div>
+      <p class="method-note">Once one constraint moves, we go after the next.</p>
     </div>
   </section>
 
