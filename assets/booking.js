@@ -19,7 +19,9 @@
 // Times are shown in the visitor's own time zone. The visitor key from
 // /visits.js goes along with the booking, so the pages this browser visited
 // become the contact's history. Choosing a time pushes one booking_click to
-// Tag Manager, the same event a click on a /book/ link sends.
+// Tag Manager, the same event a click on a /book/ link sends. On a referral
+// partner page (/partner, served at /p/<code>), the partner's code goes along
+// too, once the CRM has confirmed it (window.crmPartner).
 //
 // If the CRM can't be reached, the step says so and links to the CRM's own
 // booking page for the same type, so nobody is left without a way to book.
@@ -441,6 +443,9 @@
         answers: answers,
         visitorId: window.crmVisitor && window.crmVisitor.id ? window.crmVisitor.id : null
       };
+      // A partner page (/p/<code>) sets crmPartner once the CRM has confirmed the
+      // code. No other page sets it, so their bookings send what they always did.
+      if (typeof window.crmPartner === 'string' && window.crmPartner) body.partner = window.crmPartner;
       var submit = form.querySelector('.mmb-submit');
       state.busy = true;
       submit.disabled = true;

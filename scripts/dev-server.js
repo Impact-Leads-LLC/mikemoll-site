@@ -1,6 +1,6 @@
-// Local dev server that mirrors Vercel's static routing (cleanUrls + redirects
-// from vercel.json) and serves /api/*.js as serverless-style handlers, without
-// requiring `vercel dev` / a Vercel login. Run with `npm run dev`.
+// Local dev server that mirrors Vercel's static routing (cleanUrls, redirects
+// and rewrites from vercel.json) and serves /api/*.js as serverless-style
+// handlers, without requiring `vercel dev` / a Vercel login. Run with `npm run dev`.
 
 import http from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
@@ -35,6 +35,28 @@ if (envFile) {
 
 const vercelConfig = JSON.parse(await readFile(path.join(ROOT, 'vercel.json'), 'utf8'));
 const redirects = vercelConfig.redirects || [];
+const rewrites = vercelConfig.rewrites || [];
+
+// Rewrites with :name segments only (e.g. /p/:code -> /partner), which is all
+// vercel.json uses. The address bar keeps the original path, as on Vercel.
+function rewrite(pathname) {
+  for (const r of rewrites) {
+    const names = [];
+    const pattern = r.source
+      .split('/')
+      .map((part) => {
+        if (part.startsWith(':')) {
+          names.push(part.slice(1));
+          return '([^/]+)';
+        }
+        return part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      })
+      .join('/');
+    const m = pathname.match(new RegExp(`^${pattern}$`));
+    if (m) return r.destination.replace(/:(\w+)/g, (_, n) => m[names.indexOf(n) + 1] ?? '');
+  }
+  return pathname;
+}
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -145,7 +167,7 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  const file = await resolveStatic(pathname);
+  const file = await resolveStatic(rewrite(pathname));
   if (file) {
     const ext = path.extname(file);
     res.setHeader('Content-Type', MIME[ext] || 'application/octet-stream');
