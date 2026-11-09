@@ -376,7 +376,11 @@
         who.append(change);
         form.append(who);
       }
-      form.append(nameField, emailField, field('phone', 'Phone (optional)', phoneInput, 'Include the country code. Used only for reminders about this call.'));
+      // The consent wording is what the A2P 10DLC campaign registration quotes;
+      // change it there too.
+      var phoneField = field('phone', 'Phone (optional)', phoneInput, 'Include the country code. By adding your number, you agree to texts from Mike Moll about your booking. Msg frequency varies. Msg & data rates may apply. Reply STOP to opt out, HELP for help. ');
+      phoneField.querySelector('small').append(el('a', { href: '/privacy', target: '_blank', rel: 'noopener' }, 'Privacy policy'), '.');
+      form.append(nameField, emailField, phoneField);
       drawQuestions();
       form.append(questions);
       if (options.notes !== false) {
