@@ -71,6 +71,7 @@
     '.mmb-field select option{color:#0c1a24;background:#fff}',
     '.mmb-field textarea{min-height:88px;resize:vertical}',
     '.mmb-check{display:flex;gap:10px;align-items:flex-start;font-size:15px}',
+    '.mmb-check+small{padding-left:24px}',
     '.mmb-field[data-invalid] input,.mmb-field[data-invalid] select,.mmb-field[data-invalid] textarea{border-color:#d4513d}',
     '.mmb-error{margin:0;font-size:14px;color:#d4513d}',
     '.mmb-status{margin:0;font-size:15px;color:var(--mmb-ink)}',
@@ -341,7 +342,15 @@
         if (prefilledKeys.indexOf(f.key) >= 0 && (!f.required || state.answers[f.key] !== undefined)) return;
         var labelText = f.label + (f.required ? '' : ' (optional)');
         var node = f.fieldType === 'boolean'
-          ? (function () { var line = el('label', { class: 'mmb-check mmb-field', 'data-key': f.key }); line.append(answerControl(f), document.createTextNode(labelText)); return line; })()
+          ? (function () {
+            // A checkbox's help text sits under it (the SMS consent wording).
+            var wrap = el('div', { class: 'mmb-field', 'data-key': f.key });
+            var line = el('label', { class: 'mmb-check' });
+            line.append(answerControl(f), document.createTextNode(labelText));
+            wrap.append(line);
+            if (f.helpText) wrap.append(el('small', {}, f.helpText));
+            return wrap;
+          })()
           : field(f.key, labelText, answerControl(f), f.helpText);
         questions.appendChild(node);
       });
@@ -376,7 +385,9 @@
         who.append(change);
         form.append(who);
       }
-      form.append(nameField, emailField, field('phone', 'Phone (optional)', phoneInput, 'Include the country code. Used only for reminders about this call.'));
+      // Consent to texts is its own opt-in checkbox: the booking page's first
+      // question (sms_consent), drawn right under this field.
+      form.append(nameField, emailField, field('phone', 'Phone (optional)', phoneInput, 'Include the country code.'));
       drawQuestions();
       form.append(questions);
       if (options.notes !== false) {
