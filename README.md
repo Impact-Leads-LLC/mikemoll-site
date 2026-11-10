@@ -9,7 +9,8 @@ Static site for Mike Moll. Plain HTML/CSS, no build step. Deploys on Vercel.
 - `public/audio/` — DO NOT commit audio/video. Host on YouTube/Spotify and embed.
 - `vercel.json` — clean URLs + 301 redirects from the old GoHighLevel slugs
 - `robots.txt`, `sitemap.xml`, `llms.txt` — SEO + AI-SEO
-- `_template.html`: starting point for new pages, on design system v2 (see below).
+- `_template.html`: the markup every new page starts from at page-pipeline step 4
+  (see CLAUDE.md; never add a page outside the pipeline), on design system v2 (see below).
   GTM, the favicon block, `visits.js` and `forms.js` are already wired in. No
   build step means no automatic includes, so copy this file rather than
   starting a page from scratch. When you add a page, also add its URL to
