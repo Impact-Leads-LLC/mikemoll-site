@@ -77,9 +77,9 @@ main > .hero-b{width:100%}
 // a booking and pushes nothing.
 //
 // For Google Ads enhanced conversions the push also carries user_data: the
-// booker's email address and phone number, already hashed by the CRM, which
-// hands them over in exchange for the token. The details themselves never
-// reach this page. The booking waits at most two seconds for that answer.
+// booker's email address, already hashed by the CRM, which hands it over in
+// exchange for the token. The address itself never reaches this page, and the
+// phone number never leaves the CRM. The booking waits at most two seconds for that answer.
 // Without one, for whatever reason, it is pushed without user_data, and it is
 // still pushed exactly once.
 (function () {
@@ -146,7 +146,7 @@ main > .hero-b{width:100%}
   function hashesFrom(value) {
     var userData = {};
     if (value && typeof value === 'object') {
-      ['sha256_email_address', 'sha256_phone_number'].forEach(function (key) {
+      ['sha256_email_address'].forEach(function (key) {
         if (typeof value[key] === 'string' && HASH.test(value[key])) userData[key] = value[key];
       });
     }

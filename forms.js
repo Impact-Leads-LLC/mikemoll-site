@@ -21,14 +21,15 @@
 // can be matched to this one.
 //
 // generate_lead also carries user_data for Google Ads enhanced conversions:
-// the form's email address and phone number, each hashed in this browser
-// (SHA-256, lowercase hex) the way Google expects. Only the hashes go to
-// dataLayer, never the details themselves. If hashing is unavailable or
-// fails, user_data is left out; it never costs or holds up the lead.
+// the form's email address, hashed in this browser (SHA-256, lowercase hex)
+// the way Google expects. Only the hash goes to dataLayer, never the address
+// itself. The phone number is never sent, hashed or not: the privacy policy
+// promises mobile numbers are not shared for marketing. If hashing is
+// unavailable or fails, user_data is left out; it never costs or holds up the
+// lead.
 (function () {
   var UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  var PHONE = /^\+[0-9]{8,15}$/;
 
   function pushEvent(name, formId, eventId, userData) {
     var event = {
@@ -60,24 +61,13 @@
     return parts[0] + '@' + parts[1];
   }
 
-  // E.164 with its leading +, by the same rule /api/lead uses. A number of any
-  // other shape is left out rather than guessed at.
-  function normalPhone(value) {
-    var phone = String(value || '').replace(/[\s().-]/g, '');
-    return PHONE.test(phone) ? phone : '';
-  }
-
-  // Resolves to user_data holding whichever hashes it could make, or to null
-  // when there are none. It never rejects.
+  // Resolves to user_data holding the email hash, or to null when there is
+  // none. It never rejects.
   async function hashedUserData(data) {
     try {
       if (!window.crypto || !crypto.subtle || !window.TextEncoder) return null;
       var email = normalEmail(data.email);
-      var phone = normalPhone(data.phone);
-      var userData = {};
-      if (email) userData.sha256_email_address = await sha256(email);
-      if (phone) userData.sha256_phone_number = await sha256(phone);
-      return Object.keys(userData).length > 0 ? userData : null;
+      return email ? { sha256_email_address: await sha256(email) } : null;
     } catch (e) {
       return null;
     }
