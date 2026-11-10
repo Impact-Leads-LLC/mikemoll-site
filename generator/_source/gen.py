@@ -60,7 +60,7 @@ def player(b):
     elif b.get('captivate_id'):
         embed=f"https://player.captivate.fm/episode/{b['captivate_id']}"; etype='captivate'; h='170'
     if b.get('cover_url'):
-        img=(f'<img src="{b["image_local"]}" alt="{show} cover" '
+        img=(f'<img width="600" height="600" src="{b["image_local"]}" alt="{show} cover" '
              f'onerror="this.onerror=null;this.src=\'{b["cover_url"]}\'">')
     else:
         img=f'<div class="ph">{initials(b["show"])}</div>'
