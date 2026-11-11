@@ -13,11 +13,12 @@
 //     timeZone (the browser's zone), visitorId (only when /visits.js set one) }
 //
 // and the CRM answers { ok: true, result: { callUrl } }. "now" goes straight
-// to callUrl (www.mikemoll.co/research/call/<token>, which vercel.json sends
-// on to the CRM's call page). "later" shows the confirmation here; the link
-// goes out by email. A later time is 08:00 to 21:00 in the visitor's own time
-// zone, within the next 14 days, as the CRM checks too. Name and email are
-// checked here first. Any error is one plain line, and the form stays filled.
+// to callUrl (www.mikemoll.co/research/call/<token>, which vercel.json
+// rewrites to research-call.html, the call screen on this site). "later" shows
+// the confirmation here; the link goes out by email. A later time is 08:00 to
+// 21:00 in the visitor's own time zone, within the next 14 days, as the CRM
+// checks too. Name and email are checked here first. Any error is one plain
+// line, and the form stays filled.
 //
 // ?mock=1 fakes a success without calling the CRM, so the page can be checked
 // before the CRM route exists. ?mock=fail fakes a failed request.
