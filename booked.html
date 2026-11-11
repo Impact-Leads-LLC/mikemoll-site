@@ -46,7 +46,7 @@ main > .hero-b{width:100%}
     <div class="wrap">
       <h1>You're booked.</h1>
       <p class="when" id="booked-when" hidden></p>
-      <p class="lead">The calendar invite and the call link are on their way to your inbox.</p>
+      <p class="lead" id="booked-lead">The calendar invite and the call link are on their way to your inbox.</p>
       <a href="/" class="tlink">Back to mikemoll.co</a>
     </div>
   </section>
@@ -119,6 +119,10 @@ main > .hero-b{width:100%}
     return parts.weekday + ', ' + parts.month + ' ' + parts.day + ' at ' + parts.hour + ':' +
       parts.minute + ' ' + parts.dayPeriod.toLowerCase() + ' (' + zone.replace(/_/g, ' ') + ')';
   }
+
+  // A booking type with its own confirmation line (copy approved for that page).
+  var LEADS = { 'research-call': 'The Zoom link is in your email.' };
+  if (Object.prototype.hasOwnProperty.call(LEADS, type)) document.getElementById('booked-lead').textContent = LEADS[type];
 
   if (name && at) {
     try {

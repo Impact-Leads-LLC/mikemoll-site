@@ -119,6 +119,11 @@
       "source": "/book/:slug",
       "destination": "https://coaching-crm-tau.vercel.app/book/:slug",
       "permanent": false
+    },
+    {
+      "source": "/research/call/:token",
+      "destination": "https://coaching-crm-tau.vercel.app/research/call/:token",
+      "permanent": false
     }
   ]
 }
