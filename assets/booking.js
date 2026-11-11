@@ -11,7 +11,8 @@
 //     notes: false,                          // hide the closing notes box
 //     skip: ['heard_about'],                 // optional questions already asked
 //     button: 'btn btn-primary',             // classes for the confirm button
-//     phone: false                           // hide the phone field and the SMS consent question
+//     phone: false,                          // hide the phone field and the SMS consent question
+//     checked: ['wants_updates']             // yes/no questions that start ticked (still shown)
 //   });
 //
 // phone: false leaves out the optional phone field and the booking type's
@@ -177,6 +178,11 @@
       if (prefill.answers[key] !== '' && prefill.answers[key] !== null && prefill.answers[key] !== undefined) state.answers[key] = prefill.answers[key];
     });
     var prefilledKeys = Object.keys(state.answers).concat(options.skip || []);
+    // Yes/no questions that start ticked. Unlike prefill they stay on the form,
+    // so the person can untick them.
+    (options.checked || []).forEach(function (key) {
+      if (!(key in state.answers)) state.answers[key] = true;
+    });
     var askPhone = options.phone !== false;
     if (!askPhone) prefilledKeys.push('sms_consent');
 

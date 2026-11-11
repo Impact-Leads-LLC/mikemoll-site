@@ -52,7 +52,11 @@
     mounted = true;
     var cal = stepMike.querySelector('.cal');
     if (window.MMBooking && window.MMBooking.mount) {
-      window.MMBooking.mount(cal, { slug: 'research-call', notes: false, button: 'btn btn-primary', phone: false });
+      window.MMBooking.mount(cal, {
+        slug: 'research-call', notes: false, button: 'btn btn-primary', phone: false,
+        // Both research boxes start ticked (Mike, 2026-11-11); either can be unticked.
+        checked: ['wants_updates', 'wants_report']
+      });
     } else {
       // booking.js did not load: the CRM's own booking page still works.
       var line = document.createElement('p');
