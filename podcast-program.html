@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WD3WQ8N');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>
+// Mike sends each person a private link: /podcast-program#t=<token> (?t= works
+// too, and Stripe sends paid clients back with #t=). The token is read here,
+// before Tag Manager has loaded, and taken out of the address bar so analytics
+// and the visit beacon never see it. This tab keeps it, so a reload still works.
+(function () {
+  var t = null;
+  try {
+    var url = new URL(location.href);
+    var hash = new URLSearchParams(url.hash.replace(/^#/, ''));
+    t = hash.get('t') || url.searchParams.get('t');
+    if (t !== null) {
+      url.searchParams.delete('t');
+      history.replaceState(history.state, '', url.pathname + url.search);
+      try { sessionStorage.setItem('mm_program_t', t); } catch (e) {}
+    } else {
+      try { t = sessionStorage.getItem('mm_program_t'); } catch (e) {}
+    }
+  } catch (e) {}
+  window.mmProgramToken = t;
+  // A new link opened in a tab that already shows this page changes only the
+  // hash, which reloads nothing: load it fresh so the new token is read.
+  window.addEventListener('hashchange', function () {
+    if (/(^#|&)t=/.test(location.hash)) location.reload();
+  });
+})();
+</script>
+<title>The 100K Podcast Guest Program | Mike Moll</title>
+<meta name="description" content="How the 100K Podcast Guest Program works: the three months, the two packages and what to expect, by Mike Moll.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="https://www.mikemoll.co/podcast-program">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mike Moll">
+<meta property="og:title" content="The 100K Podcast Guest Program">
+<meta property="og:description" content="Turn podcast interviews into paying clients. The three months, the two packages and what to expect.">
+<meta property="og:url" content="https://www.mikemoll.co/podcast-program">
+<meta property="og:image" content="https://www.mikemoll.co/media/podcast-guesting/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<!-- chrome:head -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;600;700;800&family=Poppins:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site-v2.css">
+<!-- /chrome:head -->
+<link rel="preload" as="image" href="/media/podcast-guesting/mike-about.jpg">
+<style>
+/* /podcast-program: the 100K Podcast Guest Program, sent after a sales call.
+   The words are the approved info sheet (Custom Plugin/podcast-program-sheet/
+   copy.json). Each link carries a private token; the CRM (/api/programs/<token>)
+   says who it is for and where they are: open, package chosen, signed, paid.
+   Next steps lead to a call with Mike, or to the agreement, Stripe and the
+   brand interview booking. Page-only rules; everything shared lives in
+   /assets/site-v2.css. noindex, not in the sitemap. */
+[hidden]{display:none!important}
+
+/* top line and the paid note, above the hero */
+.for{margin:0 0 var(--s3);font-size:var(--fs-s);color:var(--muted)}
+.for b{font-weight:500;color:var(--ink)}
+.paid-note{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s3) var(--s5);
+  margin-bottom:var(--s4);padding:var(--s4) var(--s5);border-radius:var(--r);background:var(--soft)}
+.paid-note p{font-family:var(--font-head);font-weight:700;color:var(--ink);font-size:var(--fs-l);line-height:1.35}
+.paid-note .tlink{margin-block:0}
+
+/* hero: the navy card with Mike's portrait (hero A-split, no strip) */
+.hero-photo.split .shot .ph{object-position:50% 22%}
+.hero-photo .sub{font-family:var(--font-head);font-weight:700;font-size:clamp(20px,2vw,24px);line-height:1.25;letter-spacing:-.01em;color:var(--accent);max-width:none}
+.hero-photo .btns{margin-top:0}
+.hero-photo .proof{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s5);margin-top:var(--s3)}
+.hero-photo .stat b{display:block;font-family:var(--font-head);font-weight:800;font-size:clamp(40px,4.4vw,56px);line-height:.9;letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums}
+.hero-photo .stat span{display:block;margin-top:10px;font-size:var(--fs-s);line-height:1.4;color:#c0ccd6;max-width:26ch}
+.hero-photo .heard{margin-top:0;padding-top:var(--s5);border-top:1px solid var(--panel-line)}
+.hero-photo .heard b{color:#ffffff}
+
+/* the three months: Month 1 week by week on the left; months 2 and 3, then what
+   Mike needs, on the right. Light shadow numerals, as on the sheet. */
+.months{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);margin-top:var(--s9);border-top:1px solid var(--line)}
+.month{position:relative;padding-top:var(--s8)}
+.months > .month{padding-right:var(--s9)}
+.months > .side{padding-left:var(--s9);border-left:1px solid var(--line)}
+.m-head{position:relative;padding-top:30px}
+.m-num{position:absolute;left:-6px;top:-18px;font-family:var(--font-head);font-weight:800;font-size:96px;line-height:1;letter-spacing:-.05em;color:#c4e6fc;user-select:none}
+.m-label,.m-head h3{position:relative}
+.m-label{display:block;font-family:var(--font-head);font-weight:700;font-size:var(--fs-s);letter-spacing:.02em;color:var(--link)}
+.m-head h3{margin-top:4px;font-size:var(--fs-h4);font-weight:800;line-height:1.15;letter-spacing:-.02em}
+.steps{margin-top:var(--s6);display:flex;flex-direction:column;gap:var(--s6)}
+.step .wk{display:block;font-family:var(--font-head);font-weight:700;font-size:var(--fs-s);color:var(--link)}
+.step h4{margin-top:2px;font-size:var(--fs-l);font-weight:700;line-height:1.3;letter-spacing:-.01em}
+.step p,.step .dots{margin-top:var(--s2)}
+.month .dots li{line-height:1.6}
+.month .dots li + li{margin-top:var(--s2)}
+.side > .month > .dots{margin-top:var(--s6)}
+.needs{margin-top:var(--s8);padding:var(--s6);border-radius:var(--r);background:var(--soft)}
+.needs h3{font-size:var(--fs-h3)}
+.needs .dots{margin-top:var(--s3)}
+.needs .dots li{font-size:15px;line-height:1.6}
+.needs .dots li + li{margin-top:var(--s2)}
+
+/* packages: two cards, Done-For-You on a soft fill; the terms under them */
+.pks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s5);margin-top:var(--s8)}
+.pk{display:flex;flex-direction:column;padding:var(--s7) var(--s7) var(--s6);border:1px solid var(--line);border-radius:var(--r);background:#ffffff}
+.pk.soft{background:var(--soft);border-color:var(--soft)}
+.pk h3{font-size:var(--fs-sub);font-weight:800;line-height:1.1;letter-spacing:-.02em}
+.pk .who{margin-top:var(--s2);font-weight:500;color:var(--ink)}
+.pk .price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-top:var(--s5)}
+.pk .price b{font-family:var(--font-head);font-weight:800;font-size:clamp(44px,4.6vw,56px);line-height:1;letter-spacing:-.04em;color:var(--ink);font-variant-numeric:tabular-nums}
+.pk .price span{color:var(--muted)}
+.pk .total{margin-top:6px;font-size:var(--fs-s);color:var(--muted)}
+.pk .dots{margin-top:var(--s5);padding-top:var(--s5);border-top:1px solid var(--line)}
+.pk.soft .dots{border-top-color:var(--line-soft)}
+.pk .dots li + li{margin-top:var(--s2)}
+.pk .note{margin-top:var(--s4);font-size:var(--fs-s);line-height:1.5;color:var(--muted)}
+.term{margin-top:var(--s5);max-width:none;font-size:15px;color:var(--text)}
+.term b{font-family:var(--font-head);font-weight:700;color:var(--ink)}
+
+/* how booking works: two by two, hairlines */
+.ex{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s10);margin-top:var(--s8);border-top:1px solid var(--line)}
+.ex li{padding-block:var(--s6);border-bottom:1px solid var(--line);min-width:0}
+.ex h3{font-size:var(--fs-l)}
+.ex p{margin-top:var(--s2)}
+
+/* quotes: three white cards on the soft band */
+.quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s5);margin-top:var(--s8)}
+.quotes .tcard .result{font-size:var(--fs-h3);line-height:1.25}
+
+/* next steps: two choices side by side, a hairline between them */
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:var(--s8);border-top:1px solid var(--line)}
+.choice{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s4);padding:var(--s7) var(--s8) var(--s4) 0;min-width:0}
+.choice + .choice{border-left:1px solid var(--line);padding-inline:var(--s8) 0}
+.choices.solo{grid-template-columns:minmax(0,1fr)}
+.choices.solo .choice{padding-right:0}
+.choice h3{font-size:var(--fs-h4);font-weight:800;line-height:1.15;letter-spacing:-.02em}
+.choice > p{max-width:46ch}
+.closed{margin-top:var(--s5);font-weight:500;color:var(--ink)}
+/* package pick: radio rows (site-v2 .radio look), then the one solid button */
+.pick{width:100%;margin:0;padding:0;border:0;min-width:0}
+.pick legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pick .radio{margin-top:0}
+.pick .radio label{justify-content:space-between;gap:var(--s4);min-height:64px}
+.pick .radio .nm{display:flex;align-items:center;gap:12px;font-family:var(--font-head);font-weight:700;font-size:var(--fs-l);color:var(--ink)}
+.pick .radio .pr{font-size:15px;color:var(--muted);text-align:right}
+.choice .btn[disabled]{opacity:.6;cursor:progress}
+.choice .btn[disabled]:hover{background:var(--accent)}
+.choice .status{font-size:15px;line-height:1.5;color:#b42318}
+.choice .status:empty{display:none}
+.choice .done{font-weight:500;color:var(--ink)}
+.kick{margin-top:var(--s8);max-width:760px}
+
+@media (max-width:960px){
+  .months{grid-template-columns:minmax(0,1fr)}
+  .months > .month{padding-right:0}
+  .months > .side{padding-left:0;border-left:0;border-top:1px solid var(--line);margin-top:var(--s8)}
+  .quotes{grid-template-columns:minmax(0,1fr);max-width:640px}
+  .ex{column-gap:var(--s7)}
+}
+@media (max-width:760px){
+  .pks{grid-template-columns:minmax(0,1fr)}
+  .ex{grid-template-columns:minmax(0,1fr)}
+  .choices{grid-template-columns:minmax(0,1fr)}
+  .choice{padding-right:0}
+  .choice + .choice{border-left:0;border-top:1px solid var(--line);padding-inline:0}
+}
+@media (max-width:560px){
+  .hero-photo.split h1{font-size:38px;line-height:1.02}
+  .hero-photo h1 br{display:none}
+  .m-num{font-size:80px;top:-14px}
+  .pk{padding:var(--s6) var(--s5) var(--s5)}
+  .needs{padding:var(--s5)}
+  .pick .radio label{flex-wrap:wrap;gap:2px 12px;padding-block:12px}
+  .pick .radio .pr{flex-basis:100%;padding-left:32px;text-align:left}
+  .choice .btn{align-self:stretch}
+  .paid-note{padding:var(--s4)}
+}
+</style>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script src="/visits.js" defer></script>
+<script src="/assets/booking.js" defer></script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WD3WQ8N" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- chrome:header focus href="#next-steps" label="Next steps" cta="program-nav" -->
+<header class="site-nav focus with-cta">
+  <div class="wrap">
+    <a class="logo" href="/">Mike<span>.</span>Moll<small>Sales + Offer Coach</small></a>
+    <a class="btn line" href="#next-steps" data-cta="program-nav">Next steps</a>
+  </div>
+</header>
+<!-- /chrome:header -->
+
+<main>
+  <div class="wrap hero-wrap">
+    <p class="for" id="prepared" hidden></p>
+    <div class="paid-note" id="paid-note" hidden>
+      <p>Payment received. Next, book your brand interview.</p>
+      <a class="tlink" href="#next-steps">Pick a time</a>
+    </div>
+    <div class="hero-photo split solo">
+      <picture class="shot"><img class="ph" src="/media/podcast-guesting/mike-about.jpg" width="800" height="1000" alt="Mike Moll at a podcast mic" fetchpriority="high"></picture>
+      <div class="in">
+        <h1>The <em>100K</em> Podcast<br> Guest Program</h1>
+        <p class="sub">Turn podcast interviews into paying clients.</p>
+        <p>For service founders: a three-month program to get you on the podcasts your buyers listen to, with coaching from me on getting clients from your interviews.</p>
+        <div class="btns"><a class="btn" href="#next-steps" data-cta="program-hero">See next steps</a></div>
+        <div class="proof">
+          <div class="stat"><b>$386,000</b><span>in revenue I've traced to my own podcast interviews</span></div>
+          <div class="heard">
+            <div class="stack" aria-hidden="true"><img width="160" height="160" decoding="async" src="/media/podcast-guesting/show-thoughtful.jpg" alt=""><img width="300" height="300" decoding="async" src="/media/podcast-guesting/show-salesevangelist.jpg" alt=""><img width="160" height="160" decoding="async" src="/media/podcast-guesting/show-winthehour.jpg" alt=""><img width="160" height="160" decoding="async" src="/media/podcast-guesting/show-misfit.jpg" alt=""><img width="160" height="160" decoding="async" src="/media/podcast-guesting/show-brandcalledyou.jpg" alt=""></div>
+            <div><b>Guest on 70+ podcasts</b><span>Host of 120+ episodes</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" id="program">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>How the three months run</h2>
+        <p>Most of the setup happens in weeks 1 and 2, so your first pitches are going out by week 3.</p>
+      </div>
+      <div class="months">
+        <div class="month">
+          <div class="m-head"><span class="m-num" aria-hidden="true">1</span><span class="m-label">Month 1</span><h3>Build your kit and start pitching</h3></div>
+          <ol class="steps">
+            <li class="step">
+              <span class="wk">Week 1</span>
+              <h4>Your guest kit</h4>
+              <ul class="dots">
+                <li>A 2.5-hour brand interview.</li>
+                <li>From it, we write your speaker sheet and your pitch and follow-up emails.</li>
+                <li>A list of shows your buyers listen to. Before a show goes on it, we check that it still publishes and takes guests, and we note what the host looks for in a guest.</li>
+                <li>Verified contact details for each host, plus the host's and the show's social accounts.</li>
+                <li>Access to our outreach tool, with your campaigns set up.</li>
+              </ul>
+            </li>
+            <li class="step">
+              <span class="wk">Week 2</span>
+              <h4>Your offer and lead magnet</h4>
+              <p>We review your offer and work out how to present it to podcast audiences. You also get a plan for your lead magnet and landing page, for your team to build.</p>
+            </li>
+            <li class="step">
+              <span class="wk">Week 3</span>
+              <h4>Media training</h4>
+              <p>You learn to tell your stories and come across well on a show.</p>
+            </li>
+            <li class="step">
+              <span class="wk">Week 4</span>
+              <h4>First bookings</h4>
+              <p>Your first bookings can come in this week. As part of your media training, we also go through any podcast or media interviews you've already done.</p>
+            </li>
+          </ol>
+        </div>
+        <div class="side">
+          <div class="month">
+            <div class="m-head"><span class="m-num" aria-hidden="true">2</span><span class="m-label">Months 2 and 3</span><h3>Book more shows</h3></div>
+            <ul class="dots">
+              <li>Pitches keep going out every week.</li>
+              <li>I review your recorded interviews and give you feedback.</li>
+              <li>Open office hours every Tuesday and Thursday, 1:00 to 2:30 pm Eastern. Bring strategy questions, changes to your offer and podcast materials, or your story and delivery to work on.</li>
+              <li>Before the three months end, we review your bookings and you decide whether to renew.</li>
+            </ul>
+          </div>
+          <div class="needs">
+            <h3>What I need from you</h3>
+            <ul class="dots">
+              <li>Your 2.5-hour brand interview in week 1, then time for media training and the office hours you want to join.</li>
+              <li>Links to any podcast or media interviews you've done.</li>
+              <li>Your team to build the lead magnet and landing page from our plan.</li>
+              <li>An hour on your calendar for each recording.</li>
+              <li>On Done-With-You, a VA or team member who can run your outreach each week.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section flush" id="packages">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Pick who runs the outreach</h2>
+        <p>Both packages include all three months above.</p>
+      </div>
+      <div class="pks">
+        <div class="pk">
+          <h3>Done-With-You</h3>
+          <p class="who">Your team sends the pitches and books the shows.</p>
+          <div class="price"><b>$750</b><span>a month for 3 months</span></div>
+          <p class="total">$2,250 total</p>
+          <ul class="dots">
+            <li>Your VA or marketing team can work from your own system or from our tool.</li>
+            <li>Our tool lists the pitches and follow-ups due each day and opens each one as an email ready to send.</li>
+          </ul>
+          <p class="note">How many shows you book depends on how many pitches your team sends each week.</p>
+        </div>
+        <div class="pk soft">
+          <h3>Done-For-You</h3>
+          <p class="who">My team sends the pitches and books the shows.</p>
+          <div class="price"><b>$1,100</b><span>a month for 3 months</span></div>
+          <p class="total">$3,300 total</p>
+          <ul class="dots">
+            <li>We write to each host, follow up, and set the recording date with them.</li>
+            <li>We aim for an average of 4 booked shows a month, or about 12 for the program.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="term"><b>Terms.</b> Paid monthly, with a three-month commitment. Renewals keep the pitching, reviews and office hours going, three months at a time, at the same price.</p>
+    </div>
+  </section>
+
+  <section class="section flush" id="booking">
+    <div class="wrap">
+      <div class="sec-head"><h2>How booking works</h2></div>
+      <ul class="ex">
+        <li><h3>What counts as a booking</h3><p>A host has given you a recording date. On Done-For-You, bookings that come after day 90 from pitches sent during the program still count toward the average.</p></li>
+        <li><h3>How long things take</h3><p>Month 1 has fewer bookings, because pitching starts partway through it. Hosts often take weeks to reply, record a few weeks after they book you, and publish weeks after that.</p></li>
+        <li><h3>Show approval</h3><p>You see each show first and pick yes or skip before anyone pitches it.</p></li>
+        <li><h3>A weekly update</h3><p>When your outreach runs in our tool, you get a weekly email with where each show stands and your next recording.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section band-soft" id="clients">
+    <div class="wrap">
+      <ul class="quotes">
+        <li class="tcard">
+          <p class="result">Launched, plus a new client service</p>
+          <p class="q">&ldquo;As a partner in a global design agency, we knew podcasts were key to showcasing our expertise. Mike Moll's Podcast Excelerator gave us the tools to launch successfully, boosting our agency and inspiring a new service for our clients.&rdquo;</p>
+          <div class="by"><img width="160" height="160" loading="lazy" decoding="async" src="/media/podcast-guesting/client-marawan.jpg" alt="Marawan El-Asfahani"><div><b>Marawan El-Asfahani</b><span>Managing Partner, Chica Branding &amp; Design</span></div></div>
+        </li>
+        <li class="tcard">
+          <p class="result">A studio founder's verdict</p>
+          <p class="q">&ldquo;I spend my time with hosts and creators who get a ton of crappy emails about wanting to collab. This process that Mike is using is legit and it will work for anyone who uses it.&rdquo;</p>
+          <div class="by"><img width="160" height="160" loading="lazy" decoding="async" src="/media/podcast-guesting/client-chris.jpg" alt="Chris Cerrone"><div><b>Chris Cerrone</b><span>Founder, Vegas Content Studio</span></div></div>
+        </li>
+        <li class="tcard">
+          <p class="result">Sales up 30%</p>
+          <p class="q">&ldquo;Mike's coaching helped me grow my sales by 30% and deeply connect with my audience. His podcasting and marketing strategies opened doors I didn't even know were there.&rdquo;</p>
+          <div class="by"><img width="160" height="160" loading="lazy" decoding="async" src="/media/podcast-guesting/client-mark.jpg" alt="Mark"><div><b>Mark</b><span>Solopreneur</span></div></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="next-steps">
+    <div class="wrap">
+      <div id="steps-main">
+        <div class="sec-head"><h2>Next steps</h2></div>
+        <p class="closed" id="closed-note" hidden>Your personal link has closed. Book a call and I'll send you a new one.</p>
+        <div class="choices solo" id="choices">
+          <div class="choice" id="choice-ask">
+            <h3>I have more questions</h3>
+            <p>Book a call with me and bring your questions.</p>
+            <a class="btn line" id="ask-btn" href="/book/thirty-minute-call" data-cta="program-questions">Book a call with Mike</a>
+          </div>
+          <div class="choice" id="choice-start" hidden>
+            <h3>I'm ready to get started</h3>
+            <p id="start-lead"></p>
+            <fieldset class="pick" id="pick" hidden>
+              <legend>Your package</legend>
+              <div class="radio" id="pick-list"></div>
+            </fieldset>
+            <button class="btn" type="button" id="start-btn" hidden></button>
+            <p class="status" id="start-status" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+      <div id="steps-kickoff" hidden>
+        <div class="sec-head">
+          <h2 id="kick-title">Book your brand interview</h2>
+          <p id="kick-lead">Pick a time for your 2.5-hour brand interview. From it, we write your speaker sheet and your pitch and follow-up emails.</p>
+        </div>
+        <div class="kick" id="kick-booking"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- chrome:footer focus -->
+<footer class="site-foot focus">
+  <div class="wrap">
+    <div class="legal">
+      <div><span>&copy; 2026 Impact Leads LLC</span><i aria-hidden="true">&middot;</i><a href="/privacy">Privacy</a><i aria-hidden="true">&middot;</i><a href="/terms">Terms</a></div>
+      <nav aria-label="Social"><a href="https://www.instagram.com/themikemoll/">Instagram</a><i aria-hidden="true">&middot;</i><a href="https://www.youtube.com/@mikemollco">YouTube</a><i aria-hidden="true">&middot;</i><a href="https://www.linkedin.com/in/themikemoll/">LinkedIn</a></nav>
+    </div>
+  </div>
+</footer>
+<!-- /chrome:footer -->
+<script>
+// Next steps. GET /api/programs/<token> says who the link is for and where
+// they are (open, chosen, signed, paid, closed); the page shows the matching
+// step. Picking a package posts /start, and the CRM answers with the
+// agreement to sign. A page view is posted once per load, with this browser's
+// visit key, so the CRM can put this browser's visits on the person's record.
+// Every value from the CRM is written into the page as text, never as markup.
+(function () {
+  var API = 'https://coaching-crm-tau.vercel.app/api/programs/';
+  var TOKEN = /^[A-Za-z0-9_-]{16,128}$/;
+  var SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+  var token = window.mmProgramToken;
+  if (token && !TOKEN.test(token)) token = null;
+
+  var view = null;
+  var busy = false;
+
+  function byId(id) { return document.getElementById(id); }
+  function text(value) { return typeof value === 'string' ? value : ''; }
+  function el(tag, className, content) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (content !== undefined && content !== null) node.textContent = String(content);
+    return node;
+  }
+
+  // Only a link on this site or the CRM's own agreement page is followed.
+  function safeUrl(value) {
+    try {
+      var url = new URL(text(value), location.href);
+      return url.protocol === 'https:' || url.origin === location.origin ? url.href : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function call(path, options, ms) {
+    options = options || {};
+    options.credentials = 'omit';
+    var controller = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = null;
+    if (controller) {
+      options.signal = controller.signal;
+      timer = setTimeout(function () { controller.abort(); }, ms || 15000);
+    }
+    return fetch(API + encodeURIComponent(token) + path, options)
+      .then(function (res) {
+        return res.text().then(function (raw) {
+          var body = null;
+          try { body = raw ? JSON.parse(raw) : null; } catch (e) {}
+          var error = body && typeof body.error === 'string' ? body.error : null;
+          if (body && typeof body === 'object' && body.result && typeof body.result === 'object') body = body.result;
+          if (timer) clearTimeout(timer);
+          return { status: res.status, error: error, body: body && typeof body === 'object' ? body : {} };
+        });
+      }, function (err) {
+        if (timer) clearTimeout(timer);
+        throw err;
+      });
+  }
+
+  // ---- the "questions" call: booking.js window, name and email filled in --
+
+  function prefill() {
+    return view && text(view.email) && text(view.name) ? { name: text(view.name), email: text(view.email) } : {};
+  }
+
+  function questionsSlug() {
+    var slug = view ? text(view.questionsSlug) : '';
+    return SLUG.test(slug) ? slug : 'thirty-minute-call';
+  }
+
+  byId('ask-btn').addEventListener('click', function (event) {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!window.MMBooking) return;
+    if (window.MMBooking.open(questionsSlug(), { prefill: prefill(), phone: false, countClick: false })) event.preventDefault();
+  });
+
+  // ---- states ------------------------------------------------------------
+
+  function setPrepared() {
+    var first = view ? text(view.firstName).trim() : '';
+    var line = byId('prepared');
+    line.textContent = '';
+    if (!first) { line.hidden = true; return; }
+    line.append('Prepared for ', el('b', '', first));
+    line.hidden = false;
+  }
+
+  function onlyAsk(closed) {
+    byId('choices').classList.add('solo');
+    byId('choice-start').hidden = true;
+    byId('closed-note').hidden = !closed;
+  }
+
+  function startStatus(message) { byId('start-status').textContent = message || ''; }
+
+  function packages() {
+    return view && Array.isArray(view.packages) ? view.packages.filter(function (p) {
+      return p && /^[a-z]{2,20}$/.test(text(p.key)) && text(p.label);
+    }) : [];
+  }
+
+  function picked() {
+    var checked = document.querySelector('#pick-list input:checked');
+    return checked ? checked.value : null;
+  }
+
+  function drawPicks(selected) {
+    var list = byId('pick-list');
+    list.textContent = '';
+    packages().forEach(function (p) {
+      var label = el('label');
+      var input = el('input');
+      input.type = 'radio';
+      input.name = 'package';
+      input.value = p.key;
+      input.checked = p.key === selected;
+      input.addEventListener('change', function () { startStatus(''); setStartButton(); });
+      var name = el('span', 'nm');
+      name.append(input, el('span', '', p.label));
+      var price = text(p.priceLabel);
+      label.append(name, el('span', 'pr', price ? price + ' for 3 months' : ''));
+      list.appendChild(label);
+    });
+    byId('pick').hidden = list.children.length === 0;
+  }
+
+  function setStartButton() {
+    var button = byId('start-btn');
+    var chosen = view && text(view.chosen);
+    button.textContent = chosen && picked() === chosen ? 'Continue to your agreement' : 'Continue to the agreement';
+    button.hidden = false;
+  }
+
+  function showOpen() {
+    var chosen = text(view.chosen);
+    var label = '';
+    packages().forEach(function (p) { if (p.key === chosen) label = p.label; });
+    byId('choices').classList.remove('solo');
+    byId('closed-note').hidden = true;
+    byId('choice-start').hidden = false;
+    byId('start-lead').textContent = label
+      ? 'You picked ' + label + '. Your agreement is ready to sign.'
+      : 'Pick your package. Then you sign the agreement, pay for the first month and book your brand interview.';
+    drawPicks(label ? chosen : null);
+    setStartButton();
+    if (packages().length === 0) {
+      byId('start-btn').hidden = true;
+      startStatus("Your options didn't load.");
+    }
+  }
+
+  function showSigned() {
+    byId('choices').classList.remove('solo');
+    byId('closed-note').hidden = true;
+    byId('choice-start').hidden = false;
+    byId('start-lead').textContent = 'Your agreement is signed.';
+    byId('pick').hidden = true;
+    var button = byId('start-btn');
+    button.textContent = 'Finish your payment';
+    button.hidden = false;
+  }
+
+  function formatWhen(iso) {
+    var date = iso ? new Date(iso) : null;
+    if (!date || isNaN(date.getTime())) return '';
+    try {
+      return new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }).format(date);
+    } catch (e) {
+      return date.toString();
+    }
+  }
+
+  var kickoffMounted = false;
+  function showPaid() {
+    byId('paid-note').hidden = false;
+    byId('steps-main').hidden = true;
+    byId('steps-kickoff').hidden = false;
+    var when = formatWhen(view.kickoffAt);
+    if (when) {
+      byId('paid-note').hidden = true;
+      byId('kick-title').textContent = 'Your brand interview is booked';
+      byId('kick-lead').textContent = "It's on " + when + '. The confirmation is in your email.';
+      byId('kick-booking').hidden = true;
+      return;
+    }
+    if (kickoffMounted) return;
+    var slug = text(view.kickoffSlug);
+    if (!SLUG.test(slug)) slug = 'brand-interview';
+    var mountIt = function () {
+      if (!window.MMBooking) return false;
+      kickoffMounted = true;
+      window.MMBooking.mount(byId('kick-booking'), { slug: slug, prefill: prefill(), phone: false, button: 'btn' });
+      return true;
+    };
+    if (!mountIt()) {
+      // booking.js loads with defer; wait for it, then fall back to the CRM page.
+      var tries = 0;
+      var timer = setInterval(function () {
+        if (mountIt() || ++tries > 40) {
+          clearInterval(timer);
+          if (!kickoffMounted) {
+            var link = el('a', 'btn', 'Pick a time');
+            link.href = '/book/' + slug;
+            link.setAttribute('data-booking-external', '');
+            byId('kick-booking').appendChild(link);
+          }
+        }
+      }, 100);
+    }
+  }
+
+  function loadFailed() {
+    byId('choices').classList.remove('solo');
+    byId('choice-start').hidden = false;
+    byId('closed-note').hidden = true;
+    byId('pick').hidden = true;
+    byId('start-lead').textContent = "Your options didn't load.";
+    var button = byId('start-btn');
+    button.textContent = 'Try again';
+    button.hidden = false;
+    startStatus('');
+  }
+
+  function render() {
+    setPrepared();
+    var status = view ? text(view.status) : '';
+    if (status === 'open' || status === 'chosen') showOpen();
+    else if (status === 'signed') showSigned();
+    else if (status === 'paid') showPaid();
+    else onlyAsk(status === 'closed');
+  }
+
+  // ---- load, view, start --------------------------------------------------
+
+  var failed = false;
+  function load() {
+    failed = false;
+    return call('', { method: 'GET', headers: { Accept: 'application/json' } }, 12000)
+      .then(function (answer) {
+        if (answer.status === 404) { view = null; onlyAsk(false); return false; }
+        if (answer.status >= 400 || !text(answer.body.status)) throw new Error('load');
+        view = answer.body;
+        render();
+        return true;
+      })
+      .catch(function () { failed = true; loadFailed(); return false; });
+  }
+
+  var viewed = false;
+  function postView() {
+    if (viewed) return;
+    viewed = true;
+    var waited = 0;
+    (function send() {
+      var visitor = window.crmVisitor && window.crmVisitor.id ? window.crmVisitor.id : null;
+      if (!visitor && waited < 3000) { waited += 150; setTimeout(send, 150); return; }
+      call('/view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ visitorId: visitor }), keepalive: true }, 8000)
+        .catch(function () {});
+    })();
+  }
+
+  function go(url) {
+    var safe = safeUrl(url);
+    if (!safe) return false;
+    window.location.assign(safe);
+    return true;
+  }
+
+  function startFailed() {
+    busy = false;
+    var button = byId('start-btn');
+    button.disabled = false;
+    setStartButton();
+    startStatus("Your agreement didn't open. Try again, or book a call and I'll send it to you.");
+  }
+
+  function start() {
+    var key = picked();
+    if (!key) { startStatus('Pick a package first.'); return; }
+    // Same package as before and the agreement is still open: go straight there.
+    if (view && key === text(view.chosen) && go(view.agreementUrl)) return;
+    busy = true;
+    var button = byId('start-btn');
+    button.disabled = true;
+    button.textContent = 'Opening your agreement...';
+    startStatus('');
+    call('/start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ package: key }) }, 20000)
+      .then(function (answer) {
+        var url = answer.body.agreementUrl;
+        if (answer.status < 400 && go(url)) return;
+        if (answer.error === 'already_signed' && go(url)) return;
+        if (answer.error === 'closed' || answer.error === 'already_paid') {
+          busy = false;
+          button.disabled = false;
+          return load();
+        }
+        startFailed();
+      })
+      .catch(startFailed);
+  }
+
+  byId('start-btn').addEventListener('click', function () {
+    if (busy) return;
+    if (failed) { byId('start-btn').hidden = true; byId('start-lead').textContent = ''; load().then(function (ok) { if (ok) postView(); }); return; }
+    var status = view ? text(view.status) : '';
+    if (status === 'signed') {
+      if (!go(view.agreementUrl)) startStatus("Your agreement didn't open. Try again, or book a call and I'll send it to you.");
+      return;
+    }
+    start();
+  });
+
+  // Back from Stripe or the agreement page in the same tab: read the state again.
+  window.addEventListener('pageshow', function (event) {
+    if (event.persisted && token) { busy = false; byId('start-btn').disabled = false; load(); }
+  });
+
+  if (!token) { onlyAsk(false); return; }
+  load().then(function (ok) { if (ok) postView(); });
+})();
+</script>
+</body>
+</html>
