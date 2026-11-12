@@ -353,7 +353,7 @@
     <div class="wrap">
       <div id="steps-main">
         <div class="sec-head"><h2>Next steps</h2></div>
-        <p class="closed" id="closed-note" hidden>Your personal link has closed. Book a call and I'll send you a new one.</p>
+        <p class="closed" id="closed-note" hidden>This link no longer works. Book a call and I'll send you a new one.</p>
         <div class="choices solo" id="choices">
           <div class="choice" id="choice-ask">
             <h3>I have more questions</h3>
@@ -542,7 +542,7 @@
     setStartButton();
     if (packages().length === 0) {
       byId('start-btn').hidden = true;
-      startStatus("Your options didn't load.");
+      startStatus("I couldn't load your packages. Try again, or book a call with me.");
     }
   }
 
@@ -611,7 +611,7 @@
     byId('choice-start').hidden = false;
     byId('closed-note').hidden = true;
     byId('pick').hidden = true;
-    byId('start-lead').textContent = "Your options didn't load.";
+    byId('start-lead').textContent = "I couldn't load your packages. Try again, or book a call with me.";
     var button = byId('start-btn');
     button.textContent = 'Try again';
     button.hidden = false;
@@ -668,7 +668,7 @@
     var button = byId('start-btn');
     button.disabled = false;
     setStartButton();
-    startStatus("Your agreement didn't open. Try again, or book a call and I'll send it to you.");
+    startStatus("I couldn't open your agreement. Try again, or book a call and I'll send it to you.");
   }
 
   function start() {
@@ -701,7 +701,7 @@
     if (failed) { byId('start-btn').hidden = true; byId('start-lead').textContent = ''; load().then(function (ok) { if (ok) postView(); }); return; }
     var status = view ? text(view.status) : '';
     if (status === 'signed') {
-      if (!go(view.agreementUrl)) startStatus("Your agreement didn't open. Try again, or book a call and I'll send it to you.");
+      if (!go(view.agreementUrl)) startStatus("I couldn't open your agreement. Try again, or book a call and I'll send it to you.");
       return;
     }
     start();
