@@ -2,7 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [{ "source": "/p/:code", "destination": "/partner" }],
+  "rewrites": [
+    { "source": "/p/:code", "destination": "/partner" },
+    { "source": "/research/call/:token", "destination": "/research-call" }
+  ],
   "redirects": [
     {
       "source": "/:path*",
@@ -113,6 +116,76 @@
     {
       "source": "/post",
       "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/sales",
+      "destination": "/consulting",
+      "permanent": true
+    },
+    {
+      "source": "/5-sales-killers",
+      "destination": "/consulting",
+      "permanent": true
+    },
+    {
+      "source": "/strategy",
+      "destination": "/podcast-guesting",
+      "permanent": true
+    },
+    {
+      "source": "/strategy-call-opt-in",
+      "destination": "/podcast-guesting",
+      "permanent": true
+    },
+    {
+      "source": "/cG9kY2FzdC",
+      "destination": "/podcast-guesting",
+      "permanent": true
+    },
+    {
+      "source": "/home-1",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mikemoll",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/mikemoll/blog/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/mikemoll/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/post/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/categories/:path*",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/group",
+      "destination": "/mastermind",
+      "permanent": true
+    },
+    {
+      "source": "/events",
+      "destination": "/media",
       "permanent": true
     },
     {
