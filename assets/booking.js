@@ -10,8 +10,14 @@
 //     prefill: { name, email, phone, answers }, // optional, from an earlier form
 //     notes: false,                          // hide the closing notes box
 //     skip: ['heard_about'],                 // optional questions already asked
-//     button: 'btn btn-primary'              // classes for the confirm button
+//     button: 'btn btn-primary',             // classes for the confirm button
+//     phone: false,                          // hide the phone field and the SMS consent question
+//     checked: ['wants_updates']             // yes/no questions that start ticked (still shown)
 //   });
+//
+// phone: false leaves out the optional phone field and the booking type's
+// sms_consent question (the text-me checkbox), for a booking that never texts.
+// Without it, both show as before.
 //
 // The closing notes box asks "Anything to prepare?" unless NOTES below gives
 // the booking type its own question. The CRM keeps no wording for that box.
@@ -172,6 +178,13 @@
       if (prefill.answers[key] !== '' && prefill.answers[key] !== null && prefill.answers[key] !== undefined) state.answers[key] = prefill.answers[key];
     });
     var prefilledKeys = Object.keys(state.answers).concat(options.skip || []);
+    // Yes/no questions that start ticked. Unlike prefill they stay on the form,
+    // so the person can untick them.
+    (options.checked || []).forEach(function (key) {
+      if (!(key in state.answers)) state.answers[key] = true;
+    });
+    var askPhone = options.phone !== false;
+    if (!askPhone) prefilledKeys.push('sms_consent');
 
     root.innerHTML = '';
     var box = el('div', { class: 'mmb' });
@@ -387,7 +400,8 @@
       }
       // Consent to texts is its own opt-in checkbox: the booking page's first
       // question (sms_consent), drawn right under this field.
-      form.append(nameField, emailField, field('phone', 'Phone (optional)', phoneInput, 'Include the country code.'));
+      form.append(nameField, emailField);
+      if (askPhone) form.append(field('phone', 'Phone (optional)', phoneInput, 'Include the country code.'));
       drawQuestions();
       form.append(questions);
       if (options.notes !== false) {
@@ -428,7 +442,7 @@
       say('');
       var name = nameInput.value.trim();
       var email = emailInput.value.trim();
-      var phone = normalPhone(phoneInput.value);
+      var phone = askPhone ? normalPhone(phoneInput.value) : '';
       if (!name) return void mark('name', 'Add your name.');
       if (!EMAIL.test(email)) return void mark('email', 'Add a working email address.');
       if (phone && !PHONE.test(phone)) return void mark('phone', 'Use the full number with the country code, like +1 416 555 0100.');
