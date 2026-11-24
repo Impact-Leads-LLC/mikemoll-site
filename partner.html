@@ -17,8 +17,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- No canonical: share cards must keep the partner's /p/<code> address, or the referral is lost. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Mike Moll">
-<meta property="og:title" content="Turn podcast interviews into paying clients.">
-<meta property="og:description" content="For service founders: you talk on someone else's show, and the host and the listeners bring you clients.">
+<meta property="og:title" content="Get on Podcasts. Add $100K in Revenue.">
+<meta property="og:description" content="I get service founders on the podcasts their buyers listen to, with the offer review and interview coaching to turn those appearances into business.">
 <meta property="og:image" content="https://www.mikemoll.co/media/podcast-guesting/hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <!-- chrome:head -->
@@ -27,7 +27,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;600;700;800&family=Poppins:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/site-v2.css">
 <!-- /chrome:head -->
-<link rel="preload" as="image" href="/media/podcast-guesting/mike-about.jpg">
+<link rel="preload" as="image" href="/media/podcast-guesting/hero.jpg">
 <script>
 /* Partner line. A partner's link is /p/<code>. The CRM says whether the code
    belongs to an active partner: only then does the top note name them
@@ -74,102 +74,56 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })();
 </script>
 <style>
-/* /partner: page-only rules. Everything shared lives in /assets/site-v2.css.
-   The referral one-pager (copy.json in podcast-referral-one-pager) as a web page:
-   white with hairlines, one navy hero card. */
-main{--sec:var(--s11)}
+/* Built by scripts/build_partner.py. Page-only rules come from podcast-guesting.html. */
 /* top note, right: "Podcast guesting for service founders", or the partner once the CRM confirms them */
 .topnote{margin:0 0 var(--s3);min-height:24px;text-align:right;font-size:var(--fs-s);line-height:24px;color:var(--muted);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .3s ease-out}
 .topnote b{font-weight:500;color:var(--ink)}
 html.pt-wait .topnote{opacity:0}
-/* hero: the one navy card. Copy left, Mike right. */
-.phero{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);border-radius:var(--r);overflow:hidden;background:var(--panel)}
-.phero .in{display:flex;flex-direction:column;align-items:flex-start;gap:20px;padding:60px 56px 52px 64px}
-.phero h1{font-size:clamp(44px,4.9vw,64px);line-height:1}
-.phero .sub{margin-top:-6px;font-family:var(--font-head);font-weight:700;font-size:clamp(22px,2.2vw,28px);line-height:1.2;letter-spacing:-.015em;color:var(--accent)}
-.phero .lead{color:#dfe8ee;max-width:44ch}
-.phero .btn{margin-top:4px}
-.proof{display:flex;align-items:flex-end;gap:28px;margin-top:20px;padding-top:28px;border-top:1px solid var(--line);align-self:stretch}
-.proof .stat b{display:block;font-family:var(--font-head);font-weight:800;font-size:clamp(44px,4.4vw,56px);line-height:.9;letter-spacing:-.035em;color:var(--accent);font-variant-numeric:tabular-nums}
-.proof .stat span{display:block;margin-top:12px;max-width:26ch;font-size:var(--fs-s);line-height:1.4;color:var(--text)}
-.proof .heard{flex-direction:column;align-items:flex-start;gap:10px;margin:0;padding-left:28px;border-left:1px solid var(--line)}
-.phero .photo{position:relative;min-height:100%}
-.phero .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%}
-/* the host + what you don't need */
-.intro{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:start}
-.intro .how{padding-right:var(--s9)}
-.intro h2{font-size:clamp(30px,3vw,40px);line-height:1.1}
-.intro .how p{margin-top:var(--s4);font-size:var(--fs-l);max-width:56ch}
-.intro .points{display:flex;flex-direction:column;gap:10px;margin-top:22px}
-.intro .points li{color:var(--ink)}
-.dont{padding-left:var(--s9);border-left:1px solid var(--line)}
-.dont h3{font-size:var(--fs-h3)}
-.dont ul{display:flex;flex-direction:column;gap:8px;margin-top:14px}
-.dont li{display:flex;align-items:center;gap:14px;color:var(--ink)}
-.dont li svg{width:10px;height:10px;flex:none;fill:none;stroke:var(--field);stroke-width:1.6;stroke-linecap:round}
-.dont .note{margin-top:18px;font-size:var(--fs-s);color:var(--muted)}
-/* six benefits, framed by hairlines; a pale shadow numeral behind each title */
-.benefits{padding-block:var(--s10);border-block:1px solid var(--line)}
-.benefits h2{font-size:clamp(30px,3vw,40px);line-height:1.1}
-.bgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s8) var(--s8);margin-top:var(--s8)}
-.bgrid li{position:relative;min-width:0;padding-top:40px}
-.bgrid .sn{position:absolute;left:-5px;top:-16px;font-family:var(--font-head);font-weight:800;font-size:96px;line-height:1;letter-spacing:-.05em;color:#c4e6fc;user-select:none}
-.bgrid h3,.bgrid p{position:relative}
-.bgrid h3{line-height:1.25}
-.bgrid p{margin-top:var(--s2);font-size:15px;line-height:1.6} /* parity with .hgrid p */
-/* Mike beside Marawan, split by a hairline */
-.mike{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:start}
-.mike .about{padding-right:var(--s9)}
-.mike h2{font-size:var(--fs-sub);line-height:1.15}
-.mike .about p{margin-top:var(--s3)}
-.quote{padding-left:var(--s9);border-left:1px solid var(--line)}
-.quote blockquote{font-size:var(--fs-l);line-height:1.6;color:var(--ink)}
-.quote .who{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s5)}
-.quote .who img{width:44px;height:44px;flex:none;border-radius:50%;object-fit:cover}
-.quote .who b{display:block;font-family:var(--font-head);font-weight:700;font-size:var(--fs-b);line-height:1.2;color:var(--ink)}
-.quote .who span{display:block;margin-top:2px;font-size:var(--fs-s);line-height:1.35;color:var(--muted)}
-/* closing call to action, under the same hairline */
-.mike-sec{padding-block:var(--s10)}
-#book{padding-top:0}
-.cta{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:var(--s8);align-items:center;padding-top:var(--s9);border-top:1px solid var(--line)}
-.cta h2{font-size:clamp(30px,3vw,40px);line-height:1.1;max-width:15em}
-.cta .line{margin-top:var(--s4);font-size:var(--fs-l);color:var(--ink)}
-.cta .fit{margin-top:2px;font-size:var(--fs-s);color:var(--muted)}
+@media (max-width:560px){.topnote{margin-bottom:var(--s2);font-size:13px;line-height:20px;min-height:20px}}
+/* page rules: start */
+/* /podcast-guesting: page-only rules. Everything shared lives in /assets/site-v2.css. */
+/* offer-page devices: problem pair, promise, closing takeaways (podcast family only).
+   The hero wrapper and the myths band are site-v2's (9c). */
+.problem-h{max-width:15em}
+.problem{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:80px;align-items:start;margin-top:48px}
+.problem .copy{display:flex;flex-direction:column;gap:18px}
+.problem .copy .btn{align-self:flex-start;margin-top:10px}
+.problem .copy .strong{color:var(--ink);font-weight:500}
+.problem .frame{font-family:var(--font-head);font-weight:700;color:var(--ink);font-size:18px}
+#benefits{padding-bottom:80px}
+.spoke-note{font-size:16px;color:var(--text);max-width:62ch;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.spoke-note b{font-family:var(--font-head);font-weight:700;color:var(--ink)}
+.proofband h2{max-width:18em;margin-inline:auto}
+.promise{max-width:640px;margin:56px auto 0;text-align:center;border-top:1px solid var(--line);padding-top:28px;display:flex;flex-direction:column;gap:8px}
+.promise b{font-family:var(--font-head);font-weight:800;font-size:20px;color:var(--ink);letter-spacing:-.01em}
+.promise p{font-size:18px;line-height:1.5;color:var(--ink)}
+#program .cta-center{margin-top:36px}
+.more-link{text-align:center;margin-top:36px}
+.how .sec-head{max-width:640px}
+.closing .lead-in{font-family:var(--font-head);font-weight:700;color:var(--ink);font-size:18px;margin-top:8px}
+.takeaways{display:flex;flex-direction:column;gap:10px;text-align:left}
+.takeaways li{color:#e4ecf1;font-size:17px;line-height:1.5}
+.closing .fit{font-size:15px;color:var(--text);margin-top:12px}
+.closing .call-disclaimer{font-size:13px;line-height:1.5;color:var(--panel-muted);max-width:50ch;margin:0 auto}
+.optin .sub em{font-style:italic;color:var(--ink);font-weight:500}
+/* phones: sticky booking bar, shown between the hero button and #book */
+.mbar{display:none}
 @media (max-width:960px){
-  main{--sec:var(--s10)}
-  .phero{display:flex;flex-direction:column}
-  .phero .photo{order:-1;min-height:0;height:300px}
-  .phero .photo img{object-position:50% 22%}
-  .phero .in{padding:36px 28px 32px}
-  .intro,.mike{grid-template-columns:minmax(0,1fr)}
-  .intro .how,.mike .about{padding-right:0}
-  .dont,.quote{margin-top:var(--s7);padding:var(--s7) 0 0;border-left:0;border-top:1px solid var(--line)}
-  .bgrid{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s6)}
-  .benefits,.mike-sec{padding-block:var(--s9)}
+  #benefits{padding-bottom:56px}
+  .problem{grid-template-columns:minmax(0,1fr);margin-top:32px;gap:48px}
 }
 @media (max-width:760px){
-  .cta{grid-template-columns:minmax(0,1fr);row-gap:var(--s6)}
+  .mbar{display:block;position:fixed;left:0;right:0;bottom:0;z-index:50;padding:12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -8px 24px -12px rgba(12,26,36,.18);
+    transform:translateY(110%);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+  .mbar.on{transform:none}
+  .mbar .btn{width:100%}
 }
 @media (max-width:560px){
-  main{--sec:var(--s9)}
-  .topnote{margin-bottom:var(--s2);font-size:13px;line-height:20px;min-height:20px} /* parity */
-  .phero .photo{height:172px}
-  .phero .photo img{object-position:50% 20%}
-  .phero .in{gap:var(--s4);padding:24px 20px 28px}
-  .phero h1{font-size:36px;line-height:1.02}
-  .phero .sub{margin-top:-4px;font-size:21px} /* parity */
-  .phero .lead{font-size:var(--fs-b);line-height:1.55}
-  .proof{flex-direction:column;align-items:flex-start;gap:var(--s5);margin-top:var(--s2);padding-top:var(--s5)}
-  .proof .stat b{font-size:44px}
-  .proof .stat span{margin-top:10px}
-  .proof .heard{padding-left:0;border-left:0}
-  .intro .how p{font-size:var(--fs-b)}
-  .bgrid{grid-template-columns:minmax(0,1fr);row-gap:var(--s7)}
-  .bgrid .sn{font-size:84px;top:-12px}
-  .bgrid li{padding-top:34px}
-  .quote blockquote{font-size:var(--fs-b)}
+  .problem .copy .btn{align-self:stretch}
 }
+/* page rules: end */
 </style>
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -194,87 +148,274 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main id="top">
   <div class="wrap hero-wrap">
     <p class="topnote" id="topnote">Podcast guesting for service founders</p>
-    <section class="phero on-dark">
+    <div class="hero-photo" style="--hero-img:url('/media/podcast-guesting/hero.jpg')">
+      <img width="1800" height="1200" class="ph" src="/media/podcast-guesting/hero.jpg" alt="" aria-hidden="true" fetchpriority="high">
       <div class="in">
-        <h1>Turn podcast interviews into paying clients.</h1>
-        <p class="sub">No fame required.</p>
-        <p class="lead">For service founders: you talk on someone else's show, and the host and the listeners bring you clients.</p>
-        <a class="btn" href="/book/podcast-guesting-strategy" data-cta="partner-book">Book my free assessment</a>
-        <div class="proof">
-          <div class="stat"><b>$386,000</b><span>in revenue I've traced to my own podcast interviews</span></div>
-          <div class="heard">
-            <div class="stack" aria-hidden="true"><img decoding="async" src="/media/podcast-guesting/show-thoughtful.jpg" alt="" width="40" height="40"><img decoding="async" src="/media/podcast-guesting/show-salesevangelist.jpg" alt="" width="40" height="40"><img decoding="async" src="/media/podcast-guesting/show-winthehour.jpg" alt="" width="40" height="40"><img decoding="async" src="/media/podcast-guesting/show-misfit.jpg" alt="" width="40" height="40"><img decoding="async" src="/media/podcast-guesting/show-brandcalledyou.jpg" alt="" width="40" height="40"></div>
-            <div><b>Guest on 70+ podcasts</b><span>Host of 120+ episodes</span></div>
-          </div>
+        <h1>Get on podcasts. Add <em>$100K</em> in revenue.</h1>
+        <p>I get service founders on the podcasts their buyers listen to, with the offer review and interview coaching to turn those appearances into business.</p>
+        <div class="btns">
+          <a class="btn" href="/book/podcast-guesting-strategy" data-cta="partner-book">Book your free assessment</a>
+        </div>
+        <div class="heard">
+          <div class="stack" aria-hidden="true"><img width="300" height="300" loading="lazy" decoding="async" src="/media/podcast-guesting/show-100mba.jpg" alt=""><img width="300" height="300" loading="lazy" decoding="async" src="/media/podcast-guesting/show-salesevangelist.jpg" alt=""><img width="300" height="300" loading="lazy" decoding="async" src="/media/podcast-guesting/show-startupcanada.jpg" alt=""><img width="300" height="300" loading="lazy" decoding="async" src="/media/podcast-guesting/show-agencyprofit.jpg" alt=""></div>
+          <div><b>Guest on 70+ podcasts</b><span>Host of 120+ episodes</span></div>
         </div>
       </div>
-      <div class="photo"><img src="/media/podcast-guesting/mike-about.jpg" alt="Mike Moll at a podcast mic" width="800" height="1000" fetchpriority="high"></div>
-    </section>
+    </div>
+    <div class="strip">
+      <ul class="outs">
+        <li><svg class="g" viewBox="0 0 44 44" aria-hidden="true"><rect x="16" y="6" width="12" height="20" rx="6"/><path d="M11 21a11 11 0 0 0 22 0M22 32v6M16 38h12"/><circle class="af" cx="35" cy="9" r="3"/></svg><b>Grow Your Personal Brand</b></li>
+        <li><svg class="g" viewBox="0 0 44 44" aria-hidden="true"><path d="M22 22 10 10M22 22l12-12M22 22 10 34M22 22l12 12"/><circle cx="9" cy="9" r="3.5"/><circle cx="35" cy="9" r="3.5"/><circle cx="9" cy="35" r="3.5"/><circle cx="35" cy="35" r="3.5"/><circle class="af" cx="22" cy="22" r="4.5"/></svg><b>Build Your Network</b></li>
+        <li><svg class="g" viewBox="0 0 44 44" aria-hidden="true"><path d="M35 18A14 14 0 0 0 10.5 13"/><path d="M9 26a14 14 0 0 0 24.5 5"/><path d="M10 6v7.5h7.5"/><path class="a" d="M34 38v-7.5h-7.5"/></svg><b>Make Marketing Easier</b></li>
+      </ul>
+    </div>
   </div>
 
   <section class="section">
-    <div class="wrap intro">
-      <div class="how">
-        <h2>The host brings the audience.<br>You get the clients.</h2>
-        <p>Hosts spend years building an audience that trusts them. As their guest, you get an hour with those listeners. If you create great content, you attract ready buyers.</p>
-        <ul class="points dots">
-          <li>The host hires you or connects you with referrals.</li>
-          <li>The audience reaches out and becomes your client.</li>
-          <li>The content with credibility converts your existing audience.</li>
-        </ul>
-      </div>
-      <div class="dont">
-        <h3>What you don't need</h3>
-        <ul>
-          <li><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7"/></svg>A big social following</li>
-          <li><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7"/></svg>Your own podcast</li>
-          <li><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7"/></svg>A famous name or a big exit</li>
-          <li><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7"/></svg>A dramatic life story</li>
-          <li><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7"/></svg>To be an extrovert</li>
-        </ul>
-        <p class="note">I did it as an introvert with under 15,000 followers.</p>
-      </div>
-    </div>
-  </section>
-
-  <section>
     <div class="wrap">
-      <div class="benefits">
-        <h2>What podcasting does for your business</h2>
-        <ul class="bgrid">
-          <li><span class="sn" aria-hidden="true">1</span><h3>Sales calls that start warm</h3><p>Listeners hear most of the episode first, so they show up already trusting you.</p></li>
-          <li><span class="sn" aria-hidden="true">2</span><h3>Someone else does the bragging</h3><p>The host introduces you as the expert, so you never have to sell yourself.</p></li>
-          <li><span class="sn" aria-hidden="true">3</span><h3>A network that keeps growing</h3><p>Every interview adds a host who knows other hosts and founders.</p></li>
-          <li><span class="sn" aria-hidden="true">4</span><h3>You're 10x more Googleable</h3><p>Each episode ranks for your name, and the show notes link back to your website.</p></li>
-          <li><span class="sn" aria-hidden="true">5</span><h3>Weeks of content without filming</h3><p>Each episode gives you short clips and an email. You never set up a camera.</p></li>
-          <li><span class="sn" aria-hidden="true">6</span><h3>Leads that keep coming for years</h3><p>Episodes stay online, so people keep finding you long after the show airs.</p></li>
+      <h2 class="problem-h">You're missing credibility leverage.</h2>
+      <div class="problem">
+      <div class="copy">
+        <p class="frame">Does this sound like you?</p>
+        <ul class="lines dots">
+          <li>Your clients know the value of your work. You want more people to hear about it.</li>
+          <li>You know you need content, but you hate filming and editing it.</li>
+          <li>Your network has stalled, and you're ready to meet high-caliber operators.</li>
         </ul>
       </div>
-    </div>
-  </section>
-
-  <section class="mike-sec">
-    <div class="wrap mike">
-      <div class="about">
-        <h2>Hi, I'm Mike.</h2>
-        <p>In 2020, my agency lost 85% of its revenue almost overnight. I didn't buy more ads. I started saying yes to every microphone I could find, mostly on other people's podcasts. Those interviews became the most profitable marketing channel I've ever had.</p>
+      <div class="copy">
+        <p class="frame">Now imagine this instead.</p>
+        <p class="strong">You spend an hour talking about what you know. The host brings the audience, records and publishes the episode, and puts their name behind yours. Buyers hear how you think before they book a call. You meet a potential client or referral partner and leave with content your team can reuse.</p>
+        <a class="btn" href="/book/podcast-guesting-strategy" data-cta="partner-book">Book your free assessment</a>
       </div>
-      <figure class="quote">
-        <blockquote>&ldquo;As a partner in a global design agency, we knew podcasts were key to showcasing our expertise. Mike Moll's Podcast Excelerator gave us the tools to launch successfully, boosting our agency and inspiring a new service for our clients.&rdquo;</blockquote>
-        <figcaption class="who"><img loading="lazy" decoding="async" src="/media/podcast-guesting/client-marawan.jpg" alt="Marawan El-Asfahani" width="44" height="44"><span><b>Marawan El-Asfahani</b>Managing Partner, Chica Branding &amp; Design</span></figcaption>
-      </figure>
+      </div>
     </div>
   </section>
 
-  <section id="book" class="section">
+  <section class="section tight myths band-soft">
     <div class="wrap">
-      <div class="cta">
-        <div>
-          <h2>Book your free <span class="nw">20-minute</span> podcasting assessment.</h2>
-          <p class="line">Find out if podcasts fit your business.</p>
-          <p class="fit">For founders whose offer already sells.</p>
+      <div class="t">
+        <h2 class="mh">You might be thinking&hellip;</h2>
+        <ul class="mlist">
+          <li><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg>I need a big audience</li>
+          <li><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg>I need a big social media following</li>
+          <li><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg>I need a crazy story</li>
+          <li><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg>I need a big company exit</li>
+        </ul>
+      </div>
+      <div class="a">
+        <h3>Your work can give a host a reason to book you.</h3>
+        <p class="close">The host brings the audience. When a pitch fits the show, <b>30 to 40%</b> of hosts write back. You're more bookable than you think.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="benefits" class="section band-dark">
+    <div class="wrap">
+        <div class="sec-head split">
+          <div class="t">
+            <span class="eyebrow">Podcast lead system</span>
+            <h2>What podcasting does for your sales</h2>
+          </div>
+          <p>Hosts send you business, listeners buy, and the people who book a call already trust you.</p>
         </div>
-        <a class="btn" href="/book/podcast-guesting-strategy" data-cta="partner-book">Book my free assessment</a>
+        <ul class="hgrid">
+          <li>
+            <svg class="g" viewBox="0 0 44 44" aria-hidden="true"><circle cx="16" cy="22" r="10"/><circle class="a" cx="28" cy="22" r="10"/></svg>
+            <h3>Hosts and listeners send you clients</h3>
+            <p>70% of my podcast revenue came from hosts: referrals, introductions and their own projects. Another 15% came from listeners who reached out after an episode.</p>
+          </li>
+          <li>
+            <svg class="g" viewBox="0 0 44 44" aria-hidden="true"><rect x="6" y="9" width="32" height="28" rx="4"/><path d="M6 17h32M14 5v7M30 5v7"/><rect class="af" x="25" y="23" width="7" height="7" rx="1.5"/></svg>
+            <h3>Warmer sales calls</h3>
+            <p>Podcasts hold attention better than any other channel: listeners finish about 80% of an episode. Buyers want about 43 minutes with your content before they buy, and one episode can cover it in a single sitting.</p>
+          </li>
+          <li>
+            <svg class="g" viewBox="0 0 44 44" aria-hidden="true"><rect x="5" y="7" width="34" height="10" rx="5"/><circle cx="32" cy="12" r="2.2"/><path class="a" d="M6 25h20"/><path d="M6 31h30M6 37h24"/></svg>
+            <h3>You're 10x more Googleable</h3>
+            <p>The host vouches for you on air, every show becomes &ldquo;as heard on&rdquo; proof, and each episode ranks for your name on Google for years.</p>
+          </li>
+          <li>
+            <svg class="g" viewBox="0 0 44 44" aria-hidden="true"><rect x="13" y="4" width="18" height="36" rx="4"/><path d="M19.5 35h5"/><path class="af" d="M19 15.5v11l9-5.5z"/></svg>
+            <h3>Weeks of content, without filming</h3>
+            <p>Each episode gives you three to seven short clips and an email to your list, and you never set up a camera. Send a clip to a prospect before a sales call and they show up warmer.</p>
+          </li>
+        </ul>
+        <div class="cta-center"><a class="btn" href="/book/podcast-guesting-strategy" data-cta="partner-book">Book your free assessment</a></div>
+    </div>
+  </section>
+
+  <section class="section about" id="about">
+    <div class="wrap">
+      <div class="founder">
+        <img loading="lazy" decoding="async" src="/media/podcast-guesting/mike-about.jpg" alt="Mike Moll talking into a podcast microphone during an interview" width="800" height="1000">
+        <div class="copy">
+          <h2>Hi, I'm Mike.</h2>
+          <p>In 2020, my agency lost 85% of its revenue almost overnight. I didn't buy more ads. I started saying yes to every microphone I could find, mostly on other people's podcasts.</p>
+          <p>Those interviews became the most reliable channel I've ever had. I did it as an introvert with fewer than 15,000 combined followers.</p>
+          <p>Over the years, I've run marketing for global brands like Volvo and Patak's, served as fractional CMO for a $20M CPG brand, and written the book <em>Get on Podcasts</em>.</p>
+          <div class="seen">
+            <span class="label">Seen on</span>
+            <div class="seen-stack"><img width="300" height="300" loading="lazy" decoding="async" src="/media/podcast-guesting/show-100mba.jpg" alt="The $100 MBA Show"><img width="300" height="300" loading="lazy" decoding="async" src="/media/podcast-guesting/show-salesevangelist.jpg" alt="The Sales Evangelist"><img width="300" height="300" loading="lazy" decoding="async" src="/media/podcast-guesting/show-startupcanada.jpg" alt="Startup Canada Podcast"><img width="300" height="300" loading="lazy" decoding="async" src="/media/podcast-guesting/show-agencyprofit.jpg" alt="The Agency Profit Podcast"><img width="160" height="160" loading="lazy" decoding="async" src="/media/podcast-guesting/show-thoughtful.jpg" alt="The Thoughtful Entrepreneur"><img width="160" height="160" loading="lazy" decoding="async" src="/media/podcast-guesting/show-winthehour.jpg" alt="Win The Hour, Win The Day"><img width="160" height="160" loading="lazy" decoding="async" src="/media/podcast-guesting/show-salesgenius.jpg" alt="Sales Genius"><img width="160" height="160" loading="lazy" decoding="async" src="/media/podcast-guesting/show-bizmastermind.jpg" alt="Business Mastermind Podcast"><img width="160" height="160" loading="lazy" decoding="async" src="/media/podcast-guesting/show-brandcalledyou.jpg" alt="The Brand Called You"><img width="160" height="160" loading="lazy" decoding="async" src="/media/podcast-guesting/show-misfit.jpg" alt="The Misfit Entrepreneur"></div>
+          </div>
+        </div>
+      </div>
+      <div class="spoke">
+        <span class="label">Spoken at</span>
+        <ul class="logos" role="list">
+          <li class="logo-tile"><div class="box"><img width="150" height="23" loading="lazy" decoding="async" src="/media/podcast-guesting/logo-appsumo.svg" alt="AppSumo" style="--h:20px;--mw:130px"></div><span>Remote Work Academy speaker</span></li>
+          <li class="logo-tile"><div class="box"><b class="wm">McMaster<br>University</b></div><span>MBA guest lecturer</span></li>
+          <li class="logo-tile"><div class="box"><b class="wm">Government<br>of Canada</b></div><span>Environmental division lecture</span></li>
+          <li class="logo-tile"><div class="box"><img width="1141" height="321" loading="lazy" decoding="async" src="/media/podcast-guesting/logo-peel-halton.png" alt="Peel Halton Workforce Hub" style="--h:34px;--mw:122px;--b:.6"></div><span>Workforce development workshop</span></li>
+        </ul>
+        <p class="spoke-note"><b>AppSumo's Remote Work Academy:</b> shared a virtual stage with Chris Voss, Nir Eyal, James Clear and Dan Martell.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section proofband band-dark">
+    <div class="wrap">
+      <h2 class="center">I've done this from both sides of the mic.</h2>
+      <ul class="statrow">
+        <li><b>120+</b><span>Episodes hosted on my own show</span></li>
+        <li><b>70+</b><span>Shows as a guest</span></li>
+        <li><b>$386K</b><span>Revenue traced to my podcast appearances</span></li>
+        <li><b>150+</b><span>Offers built for service businesses</span></li>
+      </ul>
+      <div class="cta-center"><a class="btn" href="/book/podcast-guesting-strategy" data-cta="partner-book">Book your free assessment</a></div>
+    </div>
+  </section>
+
+  <section id="program" class="section band-soft">
+    <div class="wrap">
+        <div class="sec-head center">
+          <span class="eyebrow">What you get</span>
+          <h2>&ldquo;I've been on 50 podcasts and never made any money.&rdquo;</h2>
+          <p>A founder told me that at one of my workshops. Over 90 days, we shape your offer, build your podcast package, and coach you on turning interviews into clients.</p>
+        </div>
+        <ol class="pillars">
+          <li>
+            <span class="num">01</span>
+            <h3>The right offer</h3>
+            <p class="why">Your offer already sells. We review how you talk about it so hosts and listeners can see who it is for and what it can do for them.</p>
+            <span class="label">You get</span>
+            <div class="incl"><ul class="items dots">
+              <li>Your offer, framed so listeners understand it and want it</li>
+              <li>A one-sentence intro that makes people want to hear more</li>
+              <li>One clear next step for listeners, so interest turns into calls</li>
+            </ul></div>
+          </li>
+          <li>
+            <span class="num">02</span>
+            <h3>Your total podcast package</h3>
+            <p class="why">Everything hosts need to say yes, so you get booked on the shows your buyers listen to.</p>
+            <span class="label">You get</span>
+            <div class="incl"><ul class="items dots">
+              <li>A speaker sheet and episode ideas hosts say yes to</li>
+              <li>A shortlist of shows your buyers already listen to</li>
+              <li>Pitch emails, follow-up emails, and campaigns set up in our outreach tool</li>
+            </ul></div>
+          </li>
+          <li>
+            <span class="num">03</span>
+            <h3>The coaching that turns interviews into revenue</h3>
+            <p class="why">Every show adds a host to your network. We coach you to turn those hosts and their listeners into revenue.</p>
+            <span class="label">You get</span>
+            <div class="incl"><ul class="items dots">
+              <li>Media training and personal feedback on your interviews</li>
+              <li>Show prep and your best stories, so every host remembers you</li>
+              <li>The post-record chat (our secret sauce) that turns hosts into referral partners</li>
+              <li>A lead magnet and landing page plan that turn listeners into leads</li>
+            </ul></div>
+          </li>
+        </ol>
+        <div class="promise">
+          <b>The Fit-First Promise</b>
+          <p>I only accept founders I know hosts will want. If our launch call doesn't give you an offer you're proud to pitch, you get a full refund.</p>
+        </div>
+        <div class="cta-center"><a class="btn" href="/book/podcast-guesting-strategy" data-cta="partner-book">Book your free assessment</a></div>
+    </div>
+  </section>
+
+  <section id="results" class="section band-dark">
+    <div class="wrap">
+        <div class="sec-head center wide">
+          <h2>What clients say about working with me</h2>
+          <p>Clients on their podcasting, sales, and messaging work with me.</p>
+        </div>
+        <div class="tgrid">
+          <div class="tcard wide"><p class="result">Launched, plus a new client service</p><p class="q">As a partner in a global design agency, we knew podcasts were key to showcasing our expertise. Mike Moll's Podcast Excelerator gave us the tools to launch successfully, boosting our agency and inspiring a new service for our clients.</p><div class="by"><img loading="lazy" decoding="async" src="/media/podcast-guesting/client-marawan.jpg" alt="Marawan El-Asfahani" width="44" height="44"><div><b>Marawan El-Asfahani</b><span>Managing Partner, Chica Branding &amp; Design</span></div></div></div>
+          <div class="tcard"><p class="result">Sales up 30%</p><p class="q">Mike's coaching helped me grow my sales by 30% and deeply connect with my audience. His podcasting and marketing strategies opened doors I didn't even know were there.</p><div class="by"><img loading="lazy" decoding="async" src="/media/podcast-guesting/client-mark.jpg" alt="Mark" width="44" height="44"><div><b>Mark</b><span>Solopreneur</span></div><a class="watch" href="https://www.youtube.com/watch?v=xaf3zHqoBdg" target="_blank" rel="noopener"><svg viewBox="0 0 8 10" aria-hidden="true"><path d="M0 0v10l8-5z"/></svg>Watch</a></div></div>
+          <div class="tcard"><p class="result">An offer explained from the client's side</p><p class="q">The most impactful thing I learned was clarifying our message. Up until we started working with you, I was always focused on us, telling our story, instead of flipping things around and talking about what the potential client was actually looking for.</p><div class="by"><div><b>Andy</b><span>Agency owner</span></div></div></div>
+        </div>
+        <p class="more-link"><a class="tlink" href="/client-results" target="_blank" rel="noopener">See more client results</a></p>
+    </div>
+  </section>
+
+  <section class="section how">
+    <div class="wrap">
+      <div class="sec-head center">
+        <span class="eyebrow">How it works</span>
+        <h2>Turn podcast appearances into business</h2>
+        <p>It starts with a free 20-minute assessment.</p>
+      </div>
+      <ol class="seq">
+        <li><span class="num">01</span><h3>Book a free assessment</h3><p>A 20-minute podcasting assessment of your personal brand, your guesting readiness and where podcasts fit into your marketing.</p></li>
+        <li><span class="num">02</span><h3>Build your podcast package</h3><p>We build your speaker sheet and pitches, review your offer, and prepare you for interviews.</p></li>
+        <li><span class="num">03</span><h3>Pitch, record and follow up</h3><p>You get booked, share your expertise, and work with me on turning hosts and listeners into clients.</p></li>
+      </ol>
+      <div class="cta-center"><a class="btn" href="/book/podcast-guesting-strategy" data-cta="partner-book">Book your free assessment</a></div>
+    </div>
+  </section>
+
+  <section class="section flush">
+    <div class="wrap faqgrid">
+      <div class="copy">
+        <h2>Frequently asked questions</h2>
+        <p>Whether you're new to podcast guesting or you've tried it on your own, these are the questions I hear most.</p>
+      </div>
+      <div class="faqlist">
+        <details open><summary>Is this right for me?<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.25v11.5M3.25 9h11.5"/></svg></summary><p>It fits established service founders whose offer already sells: consultants, coaches, agency owners and fractional experts. You want the credibility of a personal brand without filming yourself every day. It isn't a fit if you don't have paying clients yet.</p></details>
+        <details><summary>Is the $100K guaranteed?<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.25v11.5M3.25 9h11.5"/></svg></summary><p>No. The $100K is what the right founder, on the right shows, can build to over time through hosts, listeners and content. It depends on your offer and your follow-through. I've traced $386,000 to my own appearances.</p></details>
+        <details><summary>What is the guarantee?<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.25v11.5M3.25 9h11.5"/></svg></summary><p>It's the Fit-First Promise. I only accept founders I know hosts will want, and we check that on your free assessment. After the 2.5-hour launch call, if we're not happy with the offer, you get a full refund.</p></details>
+        <details><summary>Do I have to become a content creator?<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.25v11.5M3.25 9h11.5"/></svg></summary><p>No. You show up for the conversation, and the host records and publishes it. Each episode gives you clips and an email you can share, and a simple plan lets your team handle that part.</p></details>
+        <details><summary>Do you provide a VA?<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.25v11.5M3.25 9h11.5"/></svg></summary><p>No. Your assistant can run outreach with our materials and tools. If you want my team to handle pitches and bookings, choose done-for-you.</p></details>
+        <details><summary>How much time does it take?<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.25v11.5M3.25 9h11.5"/></svg></summary><p>Start with a 2.5-hour launch call. After that, your time goes into interview prep, recordings, and conversations with hosts. You also have media training, interview feedback, and coaching available.</p></details>
+        <details><summary>What if I'm not confident doing interviews?<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 3.25v11.5M3.25 9h11.5"/></svg></summary><p>I'm an introvert too. You'll prepare your stories in three lengths and use the two sticky notes I keep by my camera. Preparation does most of the work.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="book" class="section closing band-dark">
+    <div class="wrap">
+      <h2>Start with a free <span class="nw">20-minute</span> assessment.</h2>
+      <p class="lead-in">In 20 minutes, you'll know:</p>
+      <ul class="takeaways dots">
+        <li>If podcasts fit your marketing goals</li>
+        <li>Where your personal brand stands today</li>
+        <li>What to fix before your first show</li>
+      </ul>
+      <p class="fit">For founders whose offer already sells. Not a fit if you don't have paying clients yet.</p>
+      <p class="call-disclaimer">Revenue depends on your offer and follow-through. The $100K is not a guaranteed result.</p>
+      <a class="btn" href="/book/podcast-guesting-strategy" data-cta="partner-book">Book your free assessment</a>
+    </div>
+  </section>
+
+  <section id="workshop" class="section tight band-soft">
+    <div class="wrap">
+      <div class="optin">
+        <div class="photo" role="img" style="--optin-img:url('/media/podcast-guesting/roundtable.jpg')" aria-label="Mike Moll recording a podcast at a table with three guests"></div>
+        <form id="optin-form" data-lead="workshop-recording" data-redirect="/podcast-workshop-replay" data-sending="Opening the workshop..." action="/api/lead" method="post">
+          <h3>Get the free workshop: How to Get Booked on Podcasts</h3>
+          <p class="sub">The three things that get you booked, even before anyone knows your name <em>(even if you're an introvert, like me)</em>.</p>
+          <input type="hidden" name="source" value="partner">
+          <label for="optin-name">First name</label>
+          <input id="optin-name" name="name" type="text" placeholder="First name" autocomplete="given-name" required>
+          <label for="optin-email">Email</label>
+          <input id="optin-email" name="email" type="email" placeholder="Email" autocomplete="email" required>
+          <button class="btn" type="submit">Send me the recording</button>
+          <p class="fine">Free. Instant access.</p>
+        </form>
       </div>
     </div>
   </section>
@@ -290,5 +431,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 <!-- /chrome:footer -->
+
+<div class="mbar" id="mbar" inert><a class="btn" href="/book/podcast-guesting-strategy" data-cta="partner-sticky">Book your free assessment</a></div>
+
+<script>
+(function(){
+  var bar = document.getElementById('mbar');
+  var heroBtn = document.querySelector('.hero-photo .btn');
+  var book = document.getElementById('book');
+  if (!bar || !heroBtn || !book) return;
+  var inline = Array.prototype.filter.call(document.querySelectorAll('main .btn[data-cta="partner-book"]'), function(el){ return el !== heroBtn && !book.contains(el); });
+  var queued = false;
+  function update(){
+    queued = false;
+    var vh = window.innerHeight;
+    var passedHero = heroBtn.getBoundingClientRect().bottom < 0;
+    var reachedBook = book.getBoundingClientRect().top < vh;
+    var inlineVisible = inline.some(function(el){ var r = el.getBoundingClientRect(); return r.top < vh - 90 && r.bottom > 0; });
+    var on = passedHero && !reachedBook && !inlineVisible;
+    bar.classList.toggle('on', on);
+    bar.inert = !on;
+  }
+  function queue(){ if (!queued) { queued = true; requestAnimationFrame(update); } }
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue);
+  update();
+})();
+</script>
+
+<script src="/forms.js" defer></script>
 </body>
 </html>
