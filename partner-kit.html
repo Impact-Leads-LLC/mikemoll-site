@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- No tag manager and no visits.js here on purpose: the page shows a partner's own leads and payouts. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Your partner kit | Mike Moll</title>
+<meta name="description" content="Links, materials, terms and payouts for Mike Moll's referral partners.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<!-- chrome:head -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;600;700;800&family=Poppins:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site-v2.css">
+<!-- /chrome:head -->
+<style>
+/* /partner-kit: a referral partner's private page. The part after the # is
+   their key: the CRM answers with their links, deal, leads and payouts. Built
+   on site-v2.css; only what is new here. #demo shows sample data. */
+main{--sec:var(--s10)}
+[hidden]{display:none!important}
+.khero{border-radius:var(--r);background:var(--panel);padding:56px 64px}
+.khero h1{font-size:clamp(40px,4.6vw,60px);line-height:1.02}
+.khero p{margin-top:18px;max-width:52ch;font-size:var(--fs-l);color:#dfe8ee}
+.kit h2{font-size:clamp(28px,2.8vw,38px);line-height:1.1}
+.kit .in2{margin-top:10px;max-width:60ch}
+.share{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s8);align-items:center;margin-top:var(--s6)}
+.linkrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.linkrow code{font-family:var(--font-head);font-weight:700;font-size:20px;color:var(--ink);overflow-wrap:anywhere}
+.acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.kit .btn{min-height:48px;padding:14px 22px}
+.copy{min-height:40px;padding:8px 16px;border:1.5px solid var(--field);border-radius:6px;background:#fff;font:600 15px/1 var(--font-head);color:var(--ink);cursor:pointer}
+.copy:hover{border-color:var(--ink)}
+.qr{width:168px;height:168px;border:1px solid var(--line);border-radius:var(--r);padding:8px;background:#fff}
+.qr img{width:100%;height:100%;display:block}
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s8);margin-top:var(--s6)}
+.cols2 h3{font-size:var(--fs-h4)}
+.cols2 p,.cols2 ul{margin-top:10px}
+.cols2 li+li{margin-top:8px}
+.words{margin-top:14px;padding:20px 22px;border:1px solid var(--line);border-radius:var(--r);background:#fff;white-space:pre-line;color:var(--ink);font-size:16px;line-height:1.6}
+.ktable{width:100%;margin-top:var(--s6);border-collapse:collapse;font-size:16px}
+.ktable th{padding:0 16px 10px 0;text-align:left;font:700 14px/1.3 var(--font-head);color:var(--muted)}
+.ktable td{padding:14px 16px 14px 0;border-top:1px solid var(--line);color:var(--ink);vertical-align:top}
+.ktable .n{text-align:right;padding-right:0;font-variant-numeric:tabular-nums}
+.ktable b{font-family:var(--font-head);font-weight:800}
+.tot{display:flex;flex-wrap:wrap;gap:48px;margin-top:var(--s6)}
+.tot b{display:block;font-family:var(--font-head);font-weight:800;font-size:40px;line-height:1;color:var(--ink);letter-spacing:-.03em}
+.tot span{display:block;margin-top:8px;font-size:var(--fs-s);color:var(--muted)}
+.empty{margin-top:var(--s5);color:var(--muted)}
+.rules{display:flex;flex-direction:column;gap:12px;margin-top:var(--s5);max-width:66ch}
+@media (max-width:760px){
+  .khero{padding:36px 24px}
+  .share,.cols2{grid-template-columns:minmax(0,1fr)}
+  .ktable,.ktable tbody,.ktable tr,.ktable td{display:block}
+  .ktable thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .ktable tr{padding:14px 0;border-top:1px solid var(--line)}
+  .ktable td{display:flex;justify-content:space-between;gap:16px;padding:4px 0;border:0;text-align:right}
+  .ktable td::before{content:attr(data-l);color:var(--muted);text-align:left}
+  .tot{gap:28px}
+}
+</style>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body>
+<!-- chrome:header logo -->
+<header class="site-nav focus">
+  <div class="wrap">
+    <a class="logo" href="/">Mike<span>.</span>Moll<small>Sales + Offer Coach</small></a>
+  </div>
+</header>
+<!-- /chrome:header -->
+
+<main id="top">
+  <div class="wrap hero-wrap">
+    <section class="khero on-dark">
+      <h1 id="hello">Your partner kit</h1>
+      <p id="intro">Opening your kit...</p>
+    </section>
+  </div>
+
+  <div id="kit" class="kit" hidden>
+    <section class="section">
+      <div class="wrap">
+        <h2>Your referral page and PDF</h2>
+        <p class="in2">When someone visits through your link, QR code or PDF, I can see that you sent them.</p>
+        <div class="share">
+          <div>
+            <div class="linkrow"><code id="link"></code><button class="copy" type="button" data-copy="link">Copy</button></div>
+            <div class="acts">
+              <a class="btn" id="pdf" target="_blank" rel="noopener" hidden>Open your PDF</a>
+              <a class="btn line" id="open" target="_blank" rel="noopener">See your referral page</a>
+              <button class="btn line" id="qrdl" type="button">Download your QR code</button>
+            </div>
+          </div>
+          <div class="qr"><img id="qr" alt="QR code for your page" width="152" height="152"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section band-soft">
+      <div class="wrap">
+        <h2>Two ways to send someone</h2>
+        <div class="cols2">
+          <div>
+            <h3>Share your referral page</h3>
+            <p>Send your link or PDF, post it, or put the QR code on a slide. They can book a free 20-minute assessment or watch the free workshop. If you post it publicly, say you get a referral fee.</p>
+            <p class="words" id="w1"></p>
+            <div class="acts"><button class="copy" type="button" data-copy="w1">Copy</button></div>
+          </div>
+          <div>
+            <h3>Introduce us by email</h3>
+            <p>Copy me at <a class="tlink" href="mailto:mike@mikemoll.co">mike@mikemoll.co</a>. I log them as yours when I get it.</p>
+            <p class="words" id="w2">Hi [name],
+
+I'd like you to meet Mike Moll. He gets founders like you booked on podcasts and coaches them to win clients from it. I thought of you because [why].
+
+Mike, [name] is [one line about them].
+
+You two should talk.</p>
+            <div class="acts"><button class="copy" type="button" data-copy="w2">Copy</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Who to send</h2>
+        <div class="cols2">
+          <div>
+            <h3>A good fit</h3>
+            <ul class="dots">
+              <li>They own a service business: consultants, coaches, agency owners and fractional execs</li>
+              <li>They have paying clients and an offer that already sells</li>
+              <li>They want more people to know them</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Not a fit yet</h3>
+            <ul class="dots">
+              <li>They don't have paying clients</li>
+              <li>They're still working out what they sell</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section band-soft">
+      <div class="wrap">
+        <h2>What happens after you send someone</h2>
+        <ol class="seq">
+          <li><span class="num">01</span><h3>They book a call</h3><p>It's a free 20-minute assessment with me. You get an email when they book.</p></li>
+          <li><span class="num">02</span><h3>I run the call</h3><p>I look at their offer and tell them if podcasts are a fit for them right now.</p></li>
+          <li><span class="num">03</span><h3>They become a client</h3><p>They pick a plan, sign and make their first payment. You get a second email, and your earnings start showing in this kit.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>What you earn</h2>
+        <div id="deal"></div>
+      </div>
+    </section>
+
+    <section class="section flush">
+      <div class="wrap">
+        <h2>How payouts work</h2>
+        <ul class="rules dots" id="rules"></ul>
+      </div>
+    </section>
+
+    <section class="section band-soft">
+      <div class="wrap">
+        <h2>Your referrals</h2>
+        <div id="refs"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Questions</h2>
+        <p class="in2">Email me at <a class="tlink" href="mailto:mike@mikemoll.co">mike@mikemoll.co</a>. If you haven't told me how you'd like to be paid, send that too.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- chrome:footer focus -->
+<footer class="site-foot focus">
+  <div class="wrap">
+    <div class="legal">
+      <div><span>&copy; 2026 Impact Leads LLC</span><i aria-hidden="true">&middot;</i><a href="/privacy">Privacy</a><i aria-hidden="true">&middot;</i><a href="/terms">Terms</a></div>
+      <nav aria-label="Social"><a href="https://www.instagram.com/themikemoll/">Instagram</a><i aria-hidden="true">&middot;</i><a href="https://www.youtube.com/@mikemollco">YouTube</a><i aria-hidden="true">&middot;</i><a href="https://www.linkedin.com/in/themikemoll/">LinkedIn</a></nav>
+    </div>
+  </div>
+</footer>
+<!-- /chrome:footer -->
+
+<script>
+(function () {
+  var API = 'https://coaching-crm-tau.vercel.app/api/partners/kit/';
+  var PLANS = {
+    prod_VTd8GLNznSlq2h: { name: 'Done-With-You', cents: 75000 },
+    prod_VTd8y6ni9Uzlea: { name: 'Done-For-You', cents: 110000 }
+  };
+  var key = location.hash.slice(1);
+  function $(id) { return document.getElementById(id); }
+  function money(c) {
+    return (c < 0 ? '-' : '') + '$' + (Math.abs(c) / 100).toLocaleString('en-US', { minimumFractionDigits: c % 100 ? 2 : 0, maximumFractionDigits: 2 });
+  }
+  function day(s) {
+    if (!s) return '';
+    var d = new Date(s.length === 10 ? s + 'T12:00:00' : s);
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+  function el(tag, text, cls) {
+    var n = document.createElement(tag);
+    if (text != null) n.textContent = text;
+    if (cls) n.className = cls;
+    return n;
+  }
+  function table(heads, rows) {
+    var t = el('table', null, 'ktable'), h = t.createTHead().insertRow(), b = t.createTBody();
+    heads.forEach(function (x, i) { var th = el('th', x, i === heads.length - 1 ? 'n' : ''); th.scope = 'col'; h.appendChild(th); });
+    rows.forEach(function (r) {
+      var tr = b.insertRow();
+      r.forEach(function (x, i) {
+        var td = tr.insertCell();
+        td.setAttribute('data-l', heads[i]);
+        if (i === r.length - 1) td.className = 'n';
+        td.appendChild(i === r.length - 1 ? el('b', x) : el('span', x));
+      });
+    });
+    return t;
+  }
+  function closed() {
+    $('hello').textContent = "This link isn't working.";
+    $('intro').textContent = 'Use the link in your welcome email, or write to mike@mikemoll.co and I\'ll send you a new one.';
+  }
+  function render(k) {
+    var first = String(k.name || '').trim().split(/\s+/)[0];
+    $('hello').textContent = 'Welcome, ' + first + '.';
+    $('intro').textContent = 'Your links, your materials, what you earn and where your referrals stand. This kit is private, so share your referral page instead of this link.';
+    $('link').textContent = k.page_url.replace(/^https:\/\/(www\.)?/, '');
+    $('link').dataset.full = k.page_url;
+    $('open').href = k.page_url;
+    if (typeof k.pdf_url === 'string' && /^https?:\/\//.test(k.pdf_url)) { $('pdf').href = k.pdf_url; $('pdf').hidden = false; }
+    var qr = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(k.qr_svg);
+    $('qr').src = qr;
+    $('qrdl').addEventListener('click', function () {
+      var i = new Image();
+      i.onload = function () {
+        var c = document.createElement('canvas');
+        c.width = c.height = 1200;
+        var x = c.getContext('2d');
+        x.imageSmoothingEnabled = false;
+        x.drawImage(i, 0, 0, 1200, 1200);
+        var a = el('a');
+        a.href = c.toDataURL('image/png');
+        a.download = 'mike-moll-qr-' + k.code + '.png';
+        a.click();
+      };
+      i.src = qr;
+    });
+    $('w1').textContent = 'If you\'ve ever thought about being a guest on podcasts, talk to Mike Moll. He has been on 70+ shows, and he gets service founders booked and coaches them to win clients from it. His 20-minute assessment is free: ' + k.page_url;
+
+    var known = (k.terms || []).filter(function (t) { return PLANS[t.product_id]; });
+    var months = 0, bonus = 0;
+    var rows = known.map(function (t) {
+      var p = PLANS[t.product_id];
+      var n = t.applies_to === 'first_months' ? t.months : 1;
+      var fee = Math.round(p.cents * n * t.rate_percent / 100);
+      months = Math.max(months, n);
+      bonus = Math.max(bonus, t.renewal_bonus_cents || 0);
+      return { cents: p.cents, r: [p.name + ', ' + money(p.cents) + ' a month', Number(t.rate_percent) + '% of the first ' + (n > 1 ? n + ' months' : 'payment') + ': ' + money(fee), t.renewal_bonus_cents ? money(t.renewal_bonus_cents) : 'None', money(fee + (t.renewal_bonus_cents || 0))] };
+    }).sort(function (a, b) { return a.cents - b.cents; }).map(function (x) { return x.r; });
+    if (rows.length) $('deal').appendChild(table(['Their plan', 'Referral', 'If they renew', 'Most you earn'], rows));
+    else $('deal').appendChild(el('p', 'Your terms are being set up. Email me if you need them now.', 'empty'));
+
+    var rules = [];
+    if (months > 1) rules.push('Your percentage adds up with each of their first ' + months + ' monthly payments. I pay it all together ' + (months - 1) + ' months after their first payment, when payment ' + months + ' comes in.');
+    if (months > 1) rules.push('If they stop early, you get your percentage of what they paid, on the same day.');
+    if (bonus) rules.push('Clients sign on for three months at a time. When someone you sent renews, you get ' + money(bonus) + ' once, after their first renewal payment.');
+    rules.push('If I refund a client, the same share comes off what you earned. If I already paid you, it comes off your next payout.');
+    rules.push('If two partners send the same person, the first one gets the credit.');
+    rules.push('After someone visits your referral page, they have ' + (k.attribution_days || 90) + ' days to book or sign up for the workshop and still count as yours.');
+    rules.push('People who were already my clients don\'t count.');
+    rules.push('These terms cover the plans listed above.');
+    rules.forEach(function (x) { $('rules').appendChild(el('li', x)); });
+
+    var leads = k.leads || [], cash = k.money || [], box = $('refs');
+    var owed = 0, paid = 0;
+    cash.forEach(function (m) { if (m.status === 'paid') paid += m.amount_cents; else if (m.status === 'owed') owed += m.amount_cents; });
+    var tot = el('div', null, 'tot');
+    [[String(leads.length), 'people booked a call'], [String(leads.filter(function (l) { return l.stage === 'client'; }).length), 'became clients'], [money(owed), 'earned, not paid yet'], [money(paid), 'paid so far']].forEach(function (x) {
+      var d = el('div'); d.appendChild(el('b', x[0])); d.appendChild(el('span', x[1])); tot.appendChild(d);
+    });
+    box.appendChild(tot);
+    if (!leads.length) box.appendChild(el('p', 'Nobody yet. People show up here when they book a call, including anyone who watched the workshop first.', 'empty'));
+    else box.appendChild(table(['Person', 'Where they are', 'Since'], leads.map(function (l) { return [l.name, l.stage === 'client' ? 'Client' : 'Booked a call', day(l.on)]; })));
+    if (cash.length) {
+      box.appendChild(table(['Person', 'For', 'Payout', 'Amount'], cash.map(function (m) {
+        return [m.name, m.kind === 'bonus' ? 'Renewal' : m.kind === 'refund' ? 'Refund' : 'Referral',
+          m.status === 'paid' ? 'Paid ' + day(m.paid_on) : m.due_on ? 'Due ' + day(m.due_on) : 'Due now', money(m.amount_cents)];
+      })));
+    }
+    $('kit').hidden = false;
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-copy]');
+    if (!b || !navigator.clipboard) return;
+    var n = $(b.dataset.copy);
+    navigator.clipboard.writeText(n.dataset.full || n.textContent).then(function () {
+      b.textContent = 'Copied';
+      setTimeout(function () { b.textContent = 'Copy'; }, 1600);
+    });
+  });
+  if (key === 'demo') {
+    render({ name: 'Sample Partner', code: 'test', page_url: 'https://www.mikemoll.co/p/test', pdf_url: '' + location.origin + '/media/partners/sample.pdf', attribution_days: 90,
+      qr_svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 9"><path fill="#fff" d="M0 0h9v9H0z"/><path d="M1 1h3v3H1zM5 1h3v3H5zM1 5h3v3H1zM6 6h1v1H6z"/></svg>',
+      terms: [{ product_id: 'prod_VTd8GLNznSlq2h', rate_percent: 15, applies_to: 'first_months', months: 3, renewal_bonus_cents: 25000 }, { product_id: 'prod_VTd8y6ni9Uzlea', rate_percent: 15, applies_to: 'first_months', months: 3, renewal_bonus_cents: 25000 }],
+      leads: [{ name: 'Sample Client', stage: 'client', on: '2026-11-02T12:00:00Z' }, { name: 'Sample Lead', stage: 'booked', on: '2026-11-18T12:00:00Z' }],
+      money: [{ name: 'Sample Client', kind: 'referral', amount_cents: 16500, status: 'owed', due_on: '2027-01-02' }, { name: 'Sample Client', kind: 'referral', amount_cents: 16500, status: 'owed', due_on: '2027-01-02' }, { name: 'Sample Client', kind: 'referral', amount_cents: 16500, status: 'owed', due_on: '2027-01-02' }] });
+    return;
+  }
+  if (!/^[0-9a-f]{48}$/.test(key) || !window.fetch) return closed();
+  fetch(API + key, { headers: { Accept: 'application/json' }, credentials: 'omit', referrerPolicy: 'no-referrer' })
+    .then(function (r) { if (r.status !== 200) throw 0; return r.json(); })
+    .then(render)
+    .catch(closed);
+})();
+</script>
+</body>
+</html>
