@@ -8,7 +8,8 @@ kept as it is in partner.html. What differs:
   - noindex, no canonical, no structured data (shares keep their /p/<code> URL)
   - the partner script and the "Shared with you by ..." note above the hero
   - a logo-only header and the short footer, so the only way on is the next step
-  - the calls to action are tagged partner-*, and the workshop form's source is partner
+  - the calls to action are tagged partner-*
+  - no workshop opt-in (Mike, 2026-11-25: off partner pages until there's a better funnel for it)
 """
 import re
 import sys
@@ -21,7 +22,6 @@ NOTE = '    <p class="topnote" id="topnote">Podcast guesting for service founder
 SWAPS = [
     ('data-cta="podcast-guesting-book"', 'data-cta="partner-book"'),
     ('data-cta="podcast-guesting-sticky"', 'data-cta="partner-sticky"'),
-    ('name="source" value="podcast-guesting"', 'name="source" value="partner"'),
 ]
 
 
@@ -45,6 +45,8 @@ def build():
     main = main.replace('<div class="wrap hero-wrap">\n', '<div class="wrap hero-wrap">\n' + NOTE, 1)
     # the note above the hero says it, so the eyebrow would repeat it
     main = re.sub(r'\s*<span class="eyebrow">Podcast guesting for service founders</span>', "", main, count=1)
+    main = re.sub(r'  <section id="workshop".*?</section>\n', "", main, count=1, flags=re.S)
+    main = main.replace("</section>\n\n</main>", "</section>\n</main>")
     page = swap(page, "/* page rules: start */\n", "/* page rules: end */", style + "\n")
     page = swap(page, "<!-- /chrome:header -->\n\n", "<!-- chrome:footer", main + "\n\n")
     page = page[:page.index("<!-- /chrome:footer -->")] + "<!-- /chrome:footer -->\n\n" + tail
